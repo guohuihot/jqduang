@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//liD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/liD/xhtml1-transitional.lid">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>demo1</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+<link rel="stylesheet" href="css/css.css" />
+<script src="js/jquery.js" type="text/javascript"></script>  
+<script src="js/jq.imgchange.js" type="text/javascript"></script>
+<style type="text/css">
+	.area1 span{color: #1B7020;}
+</style>
+</head>
+<body>
+<div class="tabtit"><span class="act">参数</span><span >插件说明</span><span >调用方法</span><span>在线下载</span><span >更新记录</span></div>
+<div class="tabcon">
+<pre class="area1">
+$('#bigimg li').imgChange({
+	thumbObj: '.tlist li',<span>//缩略图对象;</span>
+	botPrev: '.prev',<span>//上一个对象;</span>
+	botNext: '.next',<span>//下一个对象;</span>
+	effect: 'fade',<span>//效果,参数:fade,scroll,wfScroll(无缝滚动steps:2,changeTime:50),wb,stream,turnDown,<br>zoom,flyFade,tab,flipper,cutIn,alternately</span>
+	curClass: 'act',<span>//当前缩略图对象的样式名</span>
+	thumbOverEvent: 1,<span>//鼠标悬停是否切换1为自动切换,2为点击切换</span>
+	speed: 400,<span>//切换速度</span>
+	autoChange: 1,<span>//是否自动切换,选项卡(滑动门)时设置为0</span>
+	changeTime: 5000,<span>//自动切换的等待时间</span>
+	delayTime: 0,<span>//鼠标悬停的延迟时间</span>
+	showTxt: 0,<span>//是否显示标题,标题调用img里的alt值</span>
+	visible:1,<span>//显示对象的个数</span>
+	steps:1, <span>//每次滚动的数量，effect==wfscroll时，每次滚动的距离</span>
+	circular: 0,<span>//是否循环滚动</span>
+	vertical:1,<span>//方向</span>
+	easing: 'swing'<span>//动画效果,需要easing插件支持</span>
+	wrapSize:0,<span>//无缝滚动的外层宽度</span>
+	beforeStart:function(){$('.txt').hide},<span>//效果执行前的函数</span>
+	afterEnd:null,<span>//效果完成后的函数</span>
+})
+</pre> 
+</div>
+	
+<div class="tabcon">
+<pre  class="area2">
+插件说明：
+	当前版本imgchange V2.1 (标准大小：10.5k，压缩后：4.81k)
+	实现对象切换的插件其实网上很多，
+	但是应用起来总是不够实用，所以干脆自己写了一个，
+	以上为此插件所有参数，从前端开发角度出发，充分利用css样式的灵活性，脚本调用方式简单，
+	基本满足了现在常见开发中遇到的常用js效果，具体实际应用及代码参考以下的例子。
+	注：兼容全部主流浏览器
+</pre>
+</div>
+<div class="tabcon">
+<div class="con">
+<textarea>
+第一步：
+	<script type="text/javascript" src="http://www.ahuing.com/jquery.js"></script>
+第二步：
+	<script type="text/javascript" src="http://www.ahuing.com/jq.imgchange.js"></script>
+第三步：
+	<script type="text/javascript">
+		$('#obj').imgChange();
+	</script></textarea>
+</div>
+</div>
+<div class="tabcon">
+	<pre>猛击这里下载：
+	标准：<a href="imgchange/jq.imgchange2.1.js" target="_blank">jq.imgchange2.1.js(10.7k)</a>
+	压缩：<a href="imgchange/jq.imgchange2.1.min.js" target="_blank">jq.imgchange2.1.min.js(4.81k)</a>
+历史版本：
+	1.<a href="imgchange/jq.imgchange1.0.js" target="_blank">jq.imgchange1.0.js(5.30k)</a>
+	2.<a href="imgchange/jq.imgchange2.0.js" target="_blank">jq.imgchange2.0.js(16.8k)</a></pre>
+</div>
+<div class="tabcon">
+<div class="con">
+	<textarea>更新记录：
+	1.showTxt:1时，标题的链接由原来的a的链接改为img自定义的属性：‘data-url’值，因此对象img的格式改为:
+	<img width="300" height="200" data-url="www.ahuing.com" alt="标题标题" src="pic/s.png"/>
+	2.目前版本需要jquery1.7以上的版本才支持
+	3.优化了内部的函数，性能上提升了30%
+	4.去掉‘手风琴’，‘slide’效果
+	5.将原来的循环滚动（effect:'scroll',circular:1）改为第二种滚动效果(effect:'scroll2')</textarea>
+</div>
+</div>
+<script type="text/javascript">
+	$('.tabcon').imgChange({thumbObj:'.tabtit span',speed:0,autoChange:0})
+	// 字符转换
+	var aPre=document.getElementsByTagName('textarea');
+	for (var i = aPre.length - 1; i >= 0; i--) {
+		$(aPre[i]).after('<pre>'+htmlencode(aPre[i].value)+'</pre>');
+	};
+	function htmlencode(str) {
+		str = String(str);
+		str = str.replace(/</g, '&lt;');
+		str = str.replace(/>/g, '&gt;');
+		str = str.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+		return str;
+	}
+</script>
+</body>
+</html>

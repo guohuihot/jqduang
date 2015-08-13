@@ -1,0 +1,83 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>jqduang_jqduang.com</title>
+	<meta name="keywords" content="jqduang,jqvalidate,jqmodal,jqgallery,jqfixed,jqsimulation"/>
+	<meta name="description" content="Mr.jqDuang,前端特效,用少的代码做多的效果,复杂的问题交给我来做,您只要短短一行代码就行！"/>
+	<link rel="stylesheet" href="../css/global.css">
+	<style type="text/css">
+		.jqDuang {width: 500px;}
+		.cell {position: relative;bottom: -1px;z-index: 10;}
+		.cell span {float: left;padding: 0 10px;height:30px;line-height:30px;border: 1px solid #ddd;margin-right: 10px;cursor: pointer;background: #ddd;}
+		.cell span.act {border-bottom-color: #fff;background-color: #fff;}
+		.list {border: 1px solid #ddd;clear: both;height: 200px;position: relative;}
+		.list ul {padding: 10px;width: 480px;}
+		.list ul {line-height: 28px;white-space: nowrap;}
+		.imgcontrol {float: right;}
+		.imgcontrol .btn {color: #fff; font: bold 18px/24px simsun; overflow: hidden; text-align: center; text-decoration: none; width: 24px; height: 24px; z-index: 10;background:rgba(0,0,0,0.5);filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#77000000 ', endColorstr='#77000000 ');cursor: pointer;display: inline-block;border-radius: 50%;}
+		.imgcontrol .next {}
+		.imgcontrol .prev:hover,.imgcontrol .next:hover { background:#000; color: #c00; text-decoration: none; }
+		:root .imgcontrol .prev,:root .imgcontrol .next{filter:none\9}
+	</style>
+</head>
+<body>
+
+<div class="effect-wrap-inner">
+	<h2>滑动门/选项卡 效果</h2>
+	<div id="slide" class="jqDuang">
+		<div>
+			<div class="imgcontrol">
+				<span class="prev btn"><</span>
+				<span class="next btn">></span>
+			</div>
+			<div class="cell">
+				<span>滑动门1</span><span>滑动门2</span><span>滑动门3</span>
+			</div>
+		</div>
+		<div class="list">
+			<div>
+				<ul>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图11111</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+				</ul>
+				<ul>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图22222</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+				</ul>
+				<ul>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图3333</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+					<li>图片滚动，无缝滚动，滑动门，幻灯片，焦点图</li>
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<script src="js/jquery.js" type="text/javascript"></script>  
+<script src="js/jqduang.js?20150621" type="text/javascript"></script> 
+<script type="text/javascript">
+console.log(location.href);
+     var o = {}
+	 , aParam = location.href.split('?')[1].split('&')
+	 , aSet = ['wrapsize', 'full', 'visible', 'steps', 'overstop', 'interval', 'index', 'delaytime', 'playtime', 'autoplay', 'index', 'speed'];
+	 $.each(aParam, function(a, b) {
+	 	b = b.split('=');
+	 	o[b[0]] = $.inArray(b[0], aSet) >= 0 && decodeURIComponent(b[1])*1 || decodeURIComponent(b[1]);
+	 })
+	 o.speed *= 1; 
+	 $('.jqDuang').data(o)
+</script>
+</body>
+</html>

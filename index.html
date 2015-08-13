@@ -1,0 +1,876 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>jqduang_jqduang.com</title>
+    <meta name="keywords" content="jqduang,前端特效,网页特效,焦点图,幻灯片,滑动门,滚动图片,无缝滚动,图片切换"/>
+    <meta name="description" content="Mr.jqDuang,前端特效,网页特效,焦点图,幻灯片,滑动门,滚动图片,无缝滚动,图片切换,用少的代码做多的效果,复杂的问题交给我来做,您只要轻轻一行代码就行！"/>
+    <link rel="stylesheet" href="../css/global.css">
+    
+</head>
+<body class="bg">
+    <div class="wrap">
+        <nav class="sub-nav cf">
+            <ul>
+                <li><a class="act" href="#demo">Demo</a></li>
+                <li><a href="#howtouse">如何使用</a></li>
+                <li><a href="#param">插件参数</a></li>
+                <li><a href="#download">下载插件</a></li>
+                <li><a href="#question">常见问题</a></li>
+                <li><a href="#commus">一起交流</a></li>
+            </ul>
+        </nav>
+        <section id="demo" class="page active">
+            <article class="area">
+                <div class="effect-wrap w50p">
+                    <iframe width="560" height="336" name="demo1" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div class="config-wrap w50p">
+                    <h2>焦点图/幻灯片/图片切换 参数</h2>
+                    <!-- 表单 -->
+                    <form action="demo1.html" method="get" target="demo1">
+                        <input type="hidden" name="cell" value=".thumb"/>
+                        <input type="hidden" name="obj" value="li"/>
+                        <input type="hidden" name="prevbtn" value=".prev"/>
+                        <input type="hidden" name="nextbtn" value=".next"/>
+                        <ul>
+                            <li>
+                                <label>切换效果(effect)</label>：
+                                <select name="effect">
+                                    <option value="fade">fade</option>  
+                                    <option value="fold">fold</option>  
+                                    <option value="left">left</option>   
+                                    <option value="leftLoop">leftLoop</option> 
+                                    <option value="top">top</option> 
+                                    <option value="topLoop">topLoop</option>   
+                                </select>
+                            </li>
+                            <li>
+                                <label>切换速度(speed)</label>：
+                                <select name="speed">
+                                    <option value="100">100ms</option>  
+                                    <option value="200">200ms</option>  
+                                    <option value="300">300ms</option>  
+                                    <option selected="selected" value="400">400ms</option>  
+                                    <option value="500">500ms</option>  
+                                </select>
+                            </li>
+                            <li>
+                                <label>自动切换(autoplay)</label>：
+                                <select name="autoplay">
+                                    <option value="1">是</option>    
+                                    <option value="0">否</option>        
+                                </select>
+                            </li>
+                            <li>
+                                <label>触发方式(trigger)</label>：
+                                <select name="trigger">
+                                    <option value="mouseover">mouseover</option>  
+                                    <option value="click">click</option>  
+                                </select>
+                            </li>
+                            <li>
+                                <label>显示标题(showtit)</label>：
+                                <select name="showtit">
+                                    <option value="1">是</option>    
+                                    <option value="0">否</option>    
+                                </select>
+                            </li>
+                            <li>
+                                <label>切换间隔时间(interval)</label>：
+                                <select name="interval">
+                                    <option value="2000">2000ms</option>    
+                                    <option selected="selected" value="3000">3000ms</option>    
+                                    <option value="4000">4000ms</option>    
+                                    <option value="5000">5000ms</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>鼠标悬停(overstop)</label>：
+                                <select name="overstop">
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>初始值(index)</label>：
+                                <select name="index">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>分页对象(pagewrap)</label>：
+                                <select name="pagewrap">
+                                    <option value=".pagewrap">.pagewrap</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>前后按钮循环(btnLoop)</label>：
+                                <select name="btnLoop">
+                                    <option value="1">1</option>
+                                    <option value="0">0</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>鼠标滚动切换(wheel)</label>：
+                                <select name="wheel">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </li>
+                        </ul>
+                        <input type="submit" class="btn dn" value="提交"/>
+                    </form>
+                    
+                    <!-- /表单 -->
+                </div>
+                
+            </article>
+            <article class="area">
+                <div class="effect-wrap w50p">
+                    <iframe width="560" height="214" name="demo2" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div class="config-wrap w50p">
+                    <h2>多图滚动 参数</h2>
+                    <!-- 表单 -->
+                    <form action="demo2.html" method="get" target="demo2">
+                        <input type="hidden" name="cell" value=".thumb"/>
+                        <input type="hidden" name="obj" value="li"/>
+                        <input type="hidden" name="prevbtn" value=".prev"/>
+                        <input type="hidden" name="nextbtn" value=".next"/>
+                        <ul>
+                            <li>
+                                <label>切换效果(effect)</label>：
+                                <select name="effect">
+                                    <option value="left">left</option>  
+                                    <option value="leftLoop">leftLoop</option>  
+                                </select>
+                            </li>
+                            <li>
+                                <label>切换速度(speed)</label>：
+                                <select name="speed">
+                                    <option value="100">100ms</option>  
+                                    <option value="200">200ms</option>  
+                                    <option value="300">300ms</option>  
+                                    <option selected="selected" value="400">400ms</option>  
+                                    <option value="500">500ms</option>  
+                                </select>
+                            </li>
+                            <li>
+                                <label>自动切换(autoplay)</label>：
+                                <select name="autoplay">
+                                    <option value="1">是</option>    
+                                    <option value="0">否</option>        
+                                </select>
+                            </li>
+                            <li>
+                                <label>触发方式(trigger)</label>：
+                                <select name="trigger">
+                                    <option value="mouseover">mouseover</option>    
+                                    <option value="click">click</option>    
+                                </select>
+                            </li>
+                            <li>
+                                <label>显示个数(visible)</label>：
+                                <select name="visible">
+                                    <option value="1">1</option>    
+                                    <option value="2">2</option>    
+                                    <option selected="selected" value="3">3</option>    
+                                </select>
+                            </li>
+                            <li>
+                                <label>滚动个数(steps)</label>：
+                                <select name="steps">
+                                    <option value="1">1</option>    
+                                    <option value="2">2</option>    
+                                    <option selected="selected" value="3">3</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>切换间隔时间(interval)</label>：
+                                <select name="interval">
+                                    <option value="2000">2000ms</option>    
+                                    <option selected="selected" value="3000">3000ms</option>    
+                                    <option value="4000">4000ms</option>    
+                                    <option value="5000">5000ms</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>鼠标悬停(overstop)</label>：
+                                <select name="overstop">
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>分页对象(pagewrap)</label>：
+                                <select name="pagewrap">
+                                    <option value=".pagewrap">.pagewrap</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>前后按钮循环(btnLoop)</label>：
+                                <select name="btnLoop">
+                                    <option value="1">1</option>
+                                    <option value="0">0</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>鼠标滚动切换(wheel)</label>：
+                                <select name="wheel">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </li>
+                        </ul>
+                        <input type="submit" class="btn dn" value="提交"/>
+                    </form>
+                    
+                    <!-- /表单 -->
+                </div>
+                
+            </article>
+            <article class="area">
+                <div class="effect-wrap w50p">
+                    <iframe width="560" height="214" name="demo3" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div class="config-wrap w50p">
+                    <h2>无缝滚动 参数</h2>
+                    <!-- 表单 -->
+                    <form action="demo3.html" method="get" target="demo3">
+                        <input type="hidden" name="obj" value="li"/>
+                        <input type="hidden" name="prevbtn" value=".prev"/>
+                        <input type="hidden" name="nextbtn" value=".next"/>
+                        <ul>
+                            <li class="nowrap">
+                                <label>切换效果(effect)</label>：
+                                <select name="effect">
+                                    <option value="leftMarqueue">leftMarqueue</option>  
+                                </select>
+                            </li>
+                            <li>
+                                <label>显示个数(visible)</label>：
+                                <select name="visible">
+                                    <option value="1">1</option>    
+                                    <option value="2">2</option>    
+                                    <option selected="selected" value="3">3</option>    
+                                </select>
+                            </li>
+                            <li>
+                                <label>速度(interval)</label>：
+                                <select name="interval">
+                                    <option value="10">10ms</option>    
+                                    <option value="20">20ms</option>    
+                                    <option selected="selected" value="30">30ms</option>    
+                                    <option value="40">40ms</option>    
+                                    <option value="50">50ms</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>前/后按钮触发方式(trigger)</label>：
+                                <select name="trigger">
+                                    <option value="click">click</option>
+                                    <option value="mouseover">mouseover</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>鼠标悬停(overstop)</label>：
+                                <select name="overstop">
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </li>
+                        </ul>
+                        <input type="submit" class="btn dn" value="提交"/>
+                    </form>
+                    
+                    <!-- /表单 -->
+                </div>
+                
+            </article>
+            <article class="area">
+                <div class="effect-wrap w50p">
+                    <iframe width="560" height="410" name="demo4" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div class="config-wrap w50p">
+                    <h2>微博效果 参数</h2>
+                    <!-- 表单 -->
+                    <form action="demo4.html" method="get" target="demo4">
+                        <input type="hidden" name="obj" value="li"/>
+                        <input type="hidden" name="prevbtn" value=".prev"/>
+                        <input type="hidden" name="nextbtn" value=".next"/>
+                        <ul>
+                            <li class="nowrap">
+                                <label>切换效果(effect)</label>：
+                                <select name="effect">
+                                    <option value="weibo">weibo</option>    
+                                </select>
+                            </li>
+                            <li>
+                                <label>显示个数(visible)</label>：
+                                <select name="visible"> 
+                                    <option value="3">3</option>    
+                                    <option value="4">4</option>    
+                                    <option selected="selected" value="5">5</option>    
+                                </select>
+                            </li>
+                            <li>
+                                <label>鼠标悬停(overstop)</label>：
+                                <select name="overstop">
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>切换速度(speed)</label>：
+                                <select name="speed">
+                                    <option value="100">100ms</option>  
+                                    <option value="200">200ms</option>  
+                                    <option value="300">300ms</option>  
+                                    <option value="400">400ms</option>  
+                                    <option value="500">500ms</option>  
+                                    <option value="600">600ms</option>  
+                                    <option selected="selected" value="800">800ms</option>  
+                                    <option value="1000">1000ms</option>  
+                                </select>
+                            </li>
+                        </ul>
+                        <input type="submit" class="btn dn" value="提交"/>
+                    </form>
+                    
+                    <!-- /表单 -->
+                </div>
+                
+            </article>
+            <article class="area">
+                <div class="effect-wrap w50p">
+                    <iframe width="560" height="300" name="demo5" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div class="config-wrap w50p">
+                    <h2>滑动门/选项卡 参数</h2>
+                    <!-- 表单 -->
+                    <form action="demo5.html" method="get" target="demo5">
+                        <input type="hidden" name="obj" value="ul"/>
+                        <input type="hidden" name="cell" value=".cell"/>
+                        <input type="hidden" name="prevbtn" value=".prev"/>
+                        <input type="hidden" name="nextbtn" value=".next"/>
+                        <ul>
+                            <li>
+                                <label>自动切换(autoplay)</label>：
+                                <select name="autoplay">
+                                    <option value="1">是</option>
+                                    <option selected="selected" value="0">否</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>速度(speed)</label>：
+                                <select name="speed">
+                                    <option value="0">0</option>
+                                    <option value="300">300ms</option>
+                                    <option value="400">400ms</option>
+                                    <option value="500">500ms</option>
+                                    <option value="600">600ms</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>触发方式(trigger)</label>：
+                                <select name="trigger">
+                                    <option value="mouseover">mouseover</option>    
+                                    <option value="click">click</option>    
+                                </select>
+                            </li>
+                            <li>
+                                <label>效果(effect)</label>：
+                                <select name="effect">
+                                    <option value="fade">fade</option>
+                                    <option value="fold">fold</option>
+                                    <option value="left">left</option>
+                                    <option value="leftLoop">leftLoop</option>
+                                </select>
+                            </li>
+                        </ul>
+                        <input type="submit" class="btn dn" value="提交"/>
+                    </form>
+                    
+                    <!-- /表单 -->
+                </div>
+                
+            </article>
+        </section>
+        <section id="howtouse" class="page">
+            <article class="area">
+                <!-- <h2>如何使用</h2> -->
+                <div class="param-instruction">
+
+1. 引入jquery库: 该插件为jquery库的插件, 版本为1.7以上
+<textarea data-language="html"><script type="text/javascript" src="http://你的域名/js/jquery.js"></script></textarea>
+2. 引入插件本身:
+<textarea data-language="html"><script type="text/javascript" src="http://你的域名/js/jqduang.js"></script></textarea>
+3. 插件启用:
+<h3 class="colde-hd">方式1 : 从dom启用 </h3>
+<textarea data-language="html">
+<div class="jqDuang" data-obj="li" data-cell=".cell" data-effect="fade">
+    <div class="obj">
+        <!-- 注意这里要套两层，即'.obj'和'ul' -->
+        <ul>
+            <li><a href="#" target="_blank"><img src="1.jpg"></a></li>
+            <li><a href="#" target="_blank"><img src="2.jpg"></a></li>
+            <li><a href="#" target="_blank"><img src="3.jpg"></a></li>
+        </ul>
+    </div>
+    <div class="cell">
+        <i class="act">1</i><i>2</i><i>3</i>
+    </div>
+</div>
+</textarea>
+<h3 class="colde-hd">方式2 : js调用</h3>
+<textarea data-language="html">
+<div class="slide">
+    <div class="obj">
+        <!-- 注意这里要套两层，即'.obj'和'ul' -->
+        <ul>
+            <li><a href="#" target="_blank"><img src="1.jpg"></a></li>
+            <li><a href="#" target="_blank"><img src="2.jpg"></a></li>
+            <li><a href="#" target="_blank"><img src="3.jpg"></a></li>
+        </ul>
+    </div>
+    <div class="cell">
+        <i class="act">1</i><i>2</i><i>3</i>
+    </div>
+</div>
+</textarea>
+js代码
+<textarea data-language="javascript">
+$('.slide').jqDuang({
+    obj      : 'li'
+    , cell   : '.cell'
+    , effect : 'fade'
+})
+</textarea>
+                </div>    
+            </article>
+        </section>
+        <section id="param" class="page">
+            <article class="area">
+                <!-- <h2>插件参数</h2> -->
+                <div class="param-detail">
+                    <table cellspacing="1" cellpadding="0">
+                        <tr><td colspan="5">
+<textarea data-language="js">
+$(expr).jqDuang({
+    obj : 'li'
+    , cell : '.dot'
+    , autoplay : 1
+    , interval : 3000
+})
+//expr是效果的外框,后面是参数, 具体说明请往下看, 上面只是写了部分参数, 具体的使用需要根据实际情况
+//另:如果设置和参数的默认值一样可以不用写,如：obj 默认值是 li,如果你的设置也是li这个设置可以直接省略
+</textarea>
+                        </td></tr>
+                        <tr>
+                            <th>参数</th>
+                            <th>默认值</th>
+                            <th>版本</th>
+                            <th>说明</th>
+                            <th>详细</th>
+                        </tr>
+                        <tr>
+                            <td>obj</td>
+                            <td>li</td>
+                            <td>1.0/1.1</td>
+                            <td><span class="fcr">(必须)</span>切换对象:<br>
+                                 效果中要切换的对象<br>
+                                使用: {obj:'li'}<br>
+                                1.1版本添加了“|”当有额外的对象需要同时切换可以再加一组切换对象<br>
+                                使用: {obj:'li|ul li'}<br>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>cell</td>
+                            <td>null</td>
+                            <td>1.0/1.1</td>
+                            <td>
+
+控制切换效果的外层:
+插件会自动去找该内部的子元素作为控制切换的对象;如果子元素为空, 插件会自动往内部增加对应的子元素, 例如:下面的div子元素为空
+<textarea data-language="html"><div class="dot"></div></textarea>
+插件执行后, 会生成 
+<textarea data-language="html"><div class="dot"><i class="act">1</i><i>2</i><i>3</i></div></textarea>
+使用: {cell:'.dot'}<br>
+1.1版本添加了“|”上面的‘.dot’是控制对象的外层，有时html的结构不是这样的，可能每个对象不在一起，这样就要单独查找，1.1新加了一个“|”使我们可以这种方式直接查找控制对象<br>
+使用: {cell:'|.dot i'}<br>
+两者的区别是，前者是查找控制对象的外层，后者是直接查找控制对象
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>trigger</td>
+                            <td>mouseover</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>切换效果的触发方式:<br>
+                                参数: {effect: 'mouseover' | 'click'}<br>
+                                说明：{effect: 鼠标悬停到cell对象上时触发动画切换到对应的obj对象上 | 鼠标点击到cell对象上时触发动画切换到对应的obj对象上}<br>
+                                使用: {trigger : 'mouseover'}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr><tr>
+                            <td>effect</td>
+                            <td>fade</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>切换效果:<br>
+                                参数: {effect: fade | fold | top | topLoop | topMarqueue | left | leftLoop | leftMarqueue | weibo}<br>
+                                说明：{effect: 渐显 | 淡入淡出 | 上滚动 | 上循环滚动 | 上无缝滚动 | 左滚动 | 左循环滚动 | 左无缝滚动 | 微博效果}<br>
+                                使用: {effect : 'fade'}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>speed</td>
+                            <td>400</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>切换效果的速度:<br>
+                                说明: 毫秒(ms),一次效果用的时间<br>
+                                使用: {speed:400}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>index</td>
+                            <td>0</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>索引值:<br>
+                                说明: 就是初始高亮的值,从0开始,例如我想让幻灯片从第二张开始切换可以这样: {index:1}<br>
+                                使用: {index:0}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>autoplay</td>
+                            <td>1</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>自动切换:<br>
+                                说明: 是否自动切换到下一个, 1:自动切换, 0:不切换, 为0时"interval"设置无效<br>
+                                使用: {autoplay:1}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>interval</td>
+                            <td>3000</td>
+                            <td>1.0</td>
+                            <td>自动切换:<br>
+                                说明: 毫秒(ms), 自动切换到下一个的间隔时间, effect: top(left)Marqueue时表示滚动的速度<br>
+                                使用: {interval:3000}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>prevbtn</td>
+                            <td>null</td>
+                            <td>1.0</td>
+                            <td>上一个按钮:<br>
+                                说明: 切换到上一个的按钮<br>
+                                使用: {prevbtn:'.prev'}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>nextbtn</td>
+                            <td>null</td>
+                            <td>1.0</td>
+                            <td>下一个按钮:<br>
+                                说明: 切换到下一个的按钮<br>
+                                使用: {nextbtn:'.next'}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>delay</td>
+                            <td>150</td>
+                            <td>1.0</td>
+                            <td>触发效果后的延迟时间:<br>
+                                说明: 毫秒(ms), 点击(鼠标悬停到)cell的对象后将要触发效果前的时间, 避免重复执行以及性能上考虑设置150ms<br>
+                                使用: {delay:150}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>easing</td>
+                            <td>swing</td>
+                            <td>1.0</td>
+                            <td>动画的缓动效果:<br>
+                                说明: 可选值 swing | linear, 若要实现更多效果需要jQuery动画效果扩展增强插件(jquery.easing.js)支持<br>
+                                使用: {easing:'swing'}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>visible</td>
+                            <td>1</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>obj对象的可见个数:<br>
+                                说明: 插件会自动计算出外层的大小,从而显示对应的设置大小，effect: fade | fold时无效<br>
+                                使用: {visible:1}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>steps</td>
+                            <td>1</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>每次滚动的数量:<br>
+                                说明: 每次滚动的数量,设置时建议 steps <= visible, effect: fade | fold | top(left)Marqueue时无效<br>
+                                使用: {steps:1}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>overstop</td>
+                            <td>1</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>鼠标悬停是否停止动画:<br>
+                                说明: 到obj,cell,prevbtn,nextbtn时, 是否停止动画, top(left)Marqueue时 prevbtn,nextbtn无效<br>
+                                使用: {overstop:1}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>showtit</td>
+                            <td>0</td>
+                            <td>1.0</td>
+                            <td>
+                            是否显示标题:
+                            说明: 插件会自动创建个标签a,其内容和链接分别调用当前激活的obj对象的data-title和data-url, 例如:obj对象为
+                            <textarea data-language="html"><li data-title="标题一" data-url="www.jqduang.com"></li></textarea>
+                            会对应的生成(该设置只有当visible: 1时有效)
+                            <textarea data-language="html"><a class="txt" href="www.jqduang.com">标题一</a></textarea>
+                            使用: {showtit:1}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>pagewrap</td>
+                            <td>null</td>
+                            <td>1.0</td>
+                            <td>
+分页页码对象:
+说明: 与cell一样, 插件会自动给pagewrap标签内添加对应的页码, 例如: 
+<textarea data-language="html"><div class="pagewrap">1/4</div></textarea>
+使用: {pagewrap:'.pagewrap'}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>actclass</td>
+                            <td>act</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>cell当前激活对象的class:<br>
+                                说明: 默认为'act', 有时我们布局时可能用的class不是act,而又懒得去改,插件就可以直接设置, 例如: actclass: 'current'<br>
+                                使用: {actclass:'.act'}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>btnLoop</td>
+                            <td>1</td>
+                            <td>1.0</td>
+                            <td>按钮循环:<br>
+                                说明: 点击前/后一个时,到第一(最后)时,按钮会添加'disabled'样式,并且按钮不可用；
+                                使用: {btnLoop:1}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>wheel</td>
+                            <td>0</td>
+                            <td>1.0</td>
+                            <td>鼠标悬停对象上时滚动鼠标是否切换:<br>
+                                说明: 需要插件<a target="_blank" rel="nofollow" href="https://github.com/jquery/jquery-mousewheel">jquery.mousewheel.min.js</a>支持；版本3.1.0以上<br>
+                                使用: {wheel:1}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>方法</th>
+                            <th>类型</th>
+                            <th>版本</th>
+                            <th>说明</th>
+                            <th>详细</th>
+                        </tr>
+                        <tr>
+                            <td>number</td>
+                            <td>number</td>
+                            <td>1.0</td>
+                            <td>播放第n个:<br>
+                                说明: 可以手动播放第n个图片,n从0开始<br>
+                                使用: 播放第3个图片，如下
+<textarea data-language="js">
+$(expr).jqDuang(2);                                
+</textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>next</td>
+                            <td>string</td>
+                            <td>1.0</td>
+                            <td>播放后一个:<br>
+                                使用:
+<textarea data-language="js">
+$(expr).jqDuang('next');                                
+</textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>prev</td>
+                            <td>string</td>
+                            <td>1.0</td>
+                            <td>播放前一个:<br>
+                                使用:
+<textarea data-language="js">
+$(expr).jqDuang('prev');                                
+</textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>stop</td>
+                            <td>string</td>
+                            <td>1.0</td>
+                            <td>暂停:<br>
+                                使用:
+<textarea data-language="js">
+$(expr).jqDuang('stop');                                
+</textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>start</td>
+                            <td>string</td>
+                            <td>1.0</td>
+                            <td>开始:<br>
+                                使用:
+<textarea data-language="js">
+$(expr).jqDuang('start');                                
+</textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>index</td>
+                            <td>string</td>
+                            <td>1.0</td>
+                            <td>获取当前索引值:<br>
+                                使用:例如当前播放到第2个,下面结果为1
+<textarea data-language="js">
+var index = $(expr).jqDuang('index');//index 为 1
+</textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>事件</th>
+                            <th>参数</th>
+                            <th>版本</th>
+                            <th>说明</th>
+                            <th>详细</th>
+                        </tr>
+                        <tr>
+                            <td>beforeFun</td>
+                            <td>(el, index)</td>
+                            <td>1.0</td>
+                            <td>切换效果前执行的动作:<br>
+                                说明:el = 当前对象, index = 当前的索引(也就行切换到第n个图片里的n)
+                                使用:
+<textarea data-language="js">
+$(expr).on('beforeFun', function(el, index){
+    //这里写要执行的动作 
+});
+</textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>afterFun</td>
+                            <td>(el, index)</td>
+                            <td>1.0</td>
+                            <td>切换效果后执行的动作:<br>
+                                说明:el = 当前对象, index = 当前的索引(也就行切换到第n个图片里的n)
+                                使用:
+ <textarea data-language="js">
+$(expr).on('afterFun', function(el, index){
+   //这里写要执行的动作 
+});
+</textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+            </article>
+        </section>
+        <section id="download" class="page">
+            <article class="area">
+                <!-- <h2>下载插件</h2> -->
+                <div class="">
+                    压缩版本 <a href="http://www.jqduang.com/jqduang/js/jqduang.js" target="_blank">jqduang.js</a> (5.54k)
+                </div>
+            </article>
+        </section>
+        <section id="question" class="page">
+            <article class="area">
+                <!-- <h2>常见问题</h2> -->
+                常见问题 
+            </article>
+        </section>
+        <section id="commus" class="page">
+            <div class="blank0"></div>
+        </section>
+        
+    </div>
+
+<script src="js/jquery.js?201505203"></script>
+<script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script> 
+<script src="../js/common.js?201505203"></script>
+<script src="../js/rainbow.min.js?201505203"></script>
+    <article class="wrap">
+        <div class="area">
+            <script type="text/javascript">
+                var uyan_config = {
+                     'title':'jqduang'
+                    , 'url':'http://www.jqduang.com/jqduang'
+                    , 'du':'jqduang.com'
+                    , 'su':'jqduang' 
+                };
+            </script>
+
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2026484"></script>
+            <!-- UY END -->
+        </div><!-- /留言 -->
+    </article> 
+
+<div class="footer tac">        
+    jqDuang, jqValidate, jqModal, jqGallery, jqFixed, jqSimulation <br/>
+    Copyright ©2013 jqduang.com
+</div><!-- /footer -->
+<div class="dn">
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b2e33c0312c7235a7e13b0cf86eec840";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</div>
+</body>
+</html>
