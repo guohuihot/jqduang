@@ -479,19 +479,17 @@ $(expr).jqDuang({
                         <tr>
                             <td>obj</td>
                             <td>li</td>
-                            <td>1.0/1.1</td>
+                            <td>1.0</td>
                             <td><span class="fcr">(必须)</span>切换对象:<br>
                                  效果中要切换的对象<br>
-                                使用: {obj:'li'}<br>
-                                1.1版本添加了“|”当有额外的对象需要同时切换可以再加一组切换对象<br>
-                                使用: {obj:'li|ul li'}<br>
+                                使用: {obj:'li'}
                             </td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td>cell</td>
                             <td>null</td>
-                            <td>1.0/1.1</td>
+                            <td>1.0</td>
                             <td>
 
 控制切换效果的外层:
@@ -499,10 +497,7 @@ $(expr).jqDuang({
 <textarea data-language="html"><div class="dot"></div></textarea>
 插件执行后, 会生成 
 <textarea data-language="html"><div class="dot"><i class="act">1</i><i>2</i><i>3</i></div></textarea>
-使用: {cell:'.dot'}<br>
-1.1版本添加了“|”上面的‘.dot’是控制对象的外层，有时html的结构不是这样的，可能每个对象不在一起，这样就要单独查找，1.1新加了一个“|”使我们可以这种方式直接查找控制对象<br>
-使用: {cell:'|.dot i'}<br>
-两者的区别是，前者是查找控制对象的外层，后者是直接查找控制对象
+使用: {cell:'.dot'}
                             </td>
                             <td>&nbsp;</td>
                         </tr>
