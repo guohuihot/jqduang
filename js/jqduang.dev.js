@@ -205,6 +205,8 @@
             }
             // 鼠标滚动切换
             o.wheel * 1 && $.fn.mousewheel && $objPP.mousewheel(function(e, delta) {
+                console.log(_this.index);
+                if (_this.index == 0 || _this.index == _this.pages - 1) return false;
                 clearTimeout(t);
                 t = setTimeout($.proxy(function () {
                     _this[delta > 0 ? 'prev' : 'next']()
