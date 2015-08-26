@@ -1,8 +1,8 @@
 /**
 * author : ahuing
 * date   : 2015-04-10
-* name   : jqDuang v1.11
-* modify : 2015-8-18 16:56:54
+* name   : jqDuang v1.12
+* modify : 2015-8-26 10:38:34
  */
 !function ($) {
     var Duang = function (self, opt) {
@@ -168,17 +168,17 @@
             // 自动播放
             if (o.autoplay * 1) {
                 _this.start();
-                if (o.overstop * 1) {
-                    $objP.add(_this.$cells)
+                (o.overstop * 1) && 
+                    _this.$obj
+                    // $objPP
+                    .add(_this.$cells)
+                    .add(o.prevbtn && _this.effect != 'Marqueue' && o.prevbtn + ',' + o.nextbtn || null)
+                    .on('mouseover', $.proxy(_this.stop, _this))
+                    .on('mouseout', $.proxy(_this.start, _this))/*
                     .on('mouseover mouseout', function(e) {
+                        console.log(this);
                         _this[e.type == 'mouseover' ? 'stop' : 'start']();
-                    })
-
-                    o.prevbtn && _this.effect != 'Marqueue' && 
-                    _this.$self.find(o.prevbtn + ',' + o.nextbtn).on('mouseover mouseout', function(e) {
-                        $objP.trigger(e.type)
-                    });
-                } 
+                    })*/
             };
 
             // 显示标题
