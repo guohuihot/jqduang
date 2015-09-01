@@ -2,7 +2,7 @@
 * author : ahuing
 * date   : 2015-04-10
 * name   : jqDuang v1.12
-* modify : 2015-8-26 10:38:34
+* modify : 2015-8-26 14:10:04
  */
 !function ($) {
     var Duang = function (self, opt) {
@@ -44,7 +44,7 @@
         , cell        : ''
         , trigger     : 'mouseover' //click mouseover
         , effect      : 'fade' //效果 fold left leftLoop
-        , speed       : 400 //播放速度
+        , speed       : 500 //播放速度
         , index       : 0 //默认索引
         , autoplay    : 1 //自动播放
         , interval    : 3000 //播放间隔时间
@@ -182,7 +182,7 @@
             };
 
             // 显示标题
-            o.showtit * 1 && o.visible == 1 && $objPP.after('<a class="txt" target="_blank" href="' + $obj.eq(o.index).data('url') + '">' + $obj.eq(o.index).data('title') + '</a>')
+            o.showtit * 1 && o.visible == 1 && $objPP.after('<a class="tit-duang" target="_blank" href="' + $obj.eq(o.index).data('url') + '">' + $obj.eq(o.index).data('title') + '</a>')
  
             // 页码
             o.pagewrap && _this.$self.find(o.pagewrap).html(_this.index * 1 + 1 + '/' + _this.pages);
@@ -309,7 +309,7 @@
             // 标题
             if(o.showtit * 1 && o.visible == 1) {
                 var nextEleData = $obj.eq(next + (this.effect == 'Loop' ? 1 : 0)).data();
-                _this.$self.find('.txt').html(nextEleData.title)[0].href = nextEleData.url;
+                _this.$self.find('.tit-duang').html(nextEleData.title)[0].href = nextEleData.url;
             }
             // 分页
             o.pagewrap && _this.$self.find(o.pagewrap).html(next + 1 + '/' + _this.pages);
