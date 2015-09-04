@@ -1,8 +1,8 @@
 /**
 * author : ahuing
 * date   : 2015-04-10
-* name   : jqDuang v1.1
-* modify : 2015-07-29 00:09:55
+* name   : jqDuang v1.12
+* modify : 2015-8-26 14:10:04
  */
 !function ($) {
     var Duang = function (self, opt) {
@@ -43,7 +43,7 @@
         , cell        : ''
         , trigger     : 'mouseover' //click mouseover
         , effect      : 'fade' //效果 fold left leftLoop
-        , speed       : 400 //播放速度
+        , speed       : 500 //播放速度
         , index       : 0 //默认索引
         , autoplay    : 1 //自动播放
         , interval    : 3000 //播放间隔时间
@@ -165,23 +165,21 @@
             // 自动播放
             if (o.autoplay * 1) {
                 _this.start();
-                if (o.overstop * 1) {
-                    $objP.add(_this.$cells)
-                    .on('mouseover', function(e) {
-                        _this.stop();
-                    })
-                    .on('mouseout', function(e) {
-                        _this.start();
-                    });
-
-                    o.prevbtn && _this.effect != 'Marqueue' && _this.$self.find(o.prevbtn + ',' + o.nextbtn).on('mouseover mouseout', function(e) {
-                        $objP.trigger(e.type)
-                    });
-                } 
+                (o.overstop * 1) && 
+                    _this.$obj
+                    // $objPP
+                    .add(_this.$cells)
+                    .add(o.prevbtn && _this.effect != 'Marqueue' && o.prevbtn + ',' + o.nextbtn || null)
+                    .on('mouseover', $.proxy(_this.stop, _this))
+                    .on('mouseout', $.proxy(_this.start, _this))/*
+                    .on('mouseover mouseout', function(e) {
+                        console.log(this);
+                        _this[e.type == 'mouseover' ? 'stop' : 'start']();
+                    })*/
             };
 
             // 显示标题
-            o.showtit * 1 && o.visible == 1 && $objPP.after('<a class="txt" target="_blank" href="' + $obj.eq(o.index).data('url') + '">' + $obj.eq(o.index).data('title') + '</a>')
+            o.showtit * 1 && o.visible == 1 && $objPP.after('<a class="tit-duang" target="_blank" href="' + $obj.eq(o.index).data('url') + '">' + $obj.eq(o.index).data('title') + '</a>')
  
             // 页码
             o.pagewrap && _this.$self.find(o.pagewrap).html(_this.index * 1 + 1 + '/' + _this.pages);
@@ -310,7 +308,7 @@
             // 标题
             if(o.showtit * 1 && o.visible == 1) {
                 var nextEleData = $obj.eq(next + (this.effect == 'Loop' ? 1 : 0)).data();
-                _this.$self.find('.txt').html(nextEleData.title)[0].href = nextEleData.url;
+                _this.$self.find('.tit-duang').html(nextEleData.title)[0].href = nextEleData.url;
             }
             // 分页
             o.pagewrap && _this.$self.find(o.pagewrap).html(next + 1 + '/' + _this.pages);
