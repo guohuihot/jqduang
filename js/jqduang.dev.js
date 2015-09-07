@@ -1,8 +1,8 @@
 /**
 * author : ahuing
 * date   : 2015-04-10
-* name   : jqDuang v1.12
-* modify : 2015-8-26 14:10:04
+* name   : jqDuang v1.14
+* modify : 2015-9-7 11:07:32
  */
 !function ($) {
     var Duang = function (self, opt) {
@@ -69,7 +69,7 @@
             , $obj    = _this.$obj
             , $objP   = $obj.parent()
             , $objPP  = $objP.parent();
-
+            
             if (_this.pages <= 1 || _this.L <= o.visible) return;
             // o.wrapsize && (_this.WH[_this.objAttr] = o.wrapsize);
             !o.speed && (_this.effect = 'fade');
@@ -126,7 +126,7 @@
                     };
                     $objP.css(pCss);
 
-                    var ppCss = {overflow: 'hidden'};
+                    var ppCss = {overflow: 'hidden', position: 'relative'};
                     // ppCss[_this.objAttr] = o.wrapsize || _this.WH[_this.objAttr] * o.visible;
                     // 处理最后的边距,让整个滚动图片两边对齐
                     var $obj1 = $obj.eq(0);
@@ -147,9 +147,8 @@
                 else {
                     var __html = '';
                     for (var i = 0; i < _this.pages; i++) __html += '<i>' + (i + 1) + '</i>';
-                    _this.$cells = $(__html).appendTo(aCell[0]);
+                    _this.$cells = $(__html).appendTo(_this.$self.find(aCell[0]));
                 }
-
                 _this.$cells[o.trigger](function() {
                     clearTimeout(t);
                     _this.loopNext = _this.$cells.index(this);
