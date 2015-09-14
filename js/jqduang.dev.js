@@ -1,8 +1,8 @@
 /**
 * author : ahuing
 * date   : 2015-04-10
-* name   : jqDuang v1.14
-* modify : 2015-9-7 11:07:32
+* name   : jqDuang v1.15
+* modify : 2015-9-14 18:01:17
  */
 !function ($) {
     var Duang = function (self, opt) {
@@ -170,7 +170,8 @@
                     .add(_this.$cells)
                     .add(o.prevbtn && _this.effect != 'Marqueue' && o.prevbtn + ',' + o.nextbtn || null)
                     .on('mouseover', $.proxy(_this.stop, _this))
-                    .on('mouseout', $.proxy(_this.start, _this))/*
+                    .on('mouseout', $.proxy(_this.start, _this))
+                    /*
                     .on('mouseover mouseout', function(e) {
                         console.log(this);
                         _this[e.type == 'mouseover' ? 'stop' : 'start']();
@@ -217,6 +218,7 @@
 
         }
         , start : function () {
+            clearInterval(this.t1);
             this.t1 = setInterval($.proxy(this.next, this), this.o.interval);
         }
         , stop : function () {
