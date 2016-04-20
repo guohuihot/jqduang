@@ -7,19 +7,7 @@
     <link rel="stylesheet" href="./css/index.css">
 </head>
 <body class="bg duang">
-    <nav class="nav">
-  <ul class="wrap cf">
-    <li><a href="../" title="jqDuang"><span>首页</span></a></li>
-    <li><a href="../jqduang/" title="网页特效"><span>jqDuang</span></a></li>
-    <li><a href="../jqvalidate/" title="表单验证"><span>jqValidate</span></a></li>
-    <li><a href="../jqmodal/" title="弹出层"><span>jqModal</span></a></li>
-    <li><a href="../jqgallery/" title="图片相册"><span>jqGallery</span></a></li>
-    <li><a href="../jqfixed/" title="jqfixed"><span>jqFixed</span></a></li>
-    <li><a href="../jqscrollspy/" title="滚动监听"><span>jqScrollspy</span></a></li>
-    <li><a href="../jqsimulation/" title="模拟select"><span>jqSimulation</span></a></li>
-    <li><a href="../aboutus/" title="关于我们"><span>关于jqDuang</span></a></li>
-  </ul>
-</nav>
+    @@include('./_header.html')
     <div class="wrap">
         <nav class="sub-nav">
             <ul>
@@ -863,22 +851,6 @@ $(expr).on('afterFun', function(el, index){
     </div><!-- /留言 -->
 </article> 
 
-<div class="footer tac">        
-    jqDuang, jqValidate, jqModal, jqGallery, jqFixed, jqSimulation <br/>
-    Copyright ©2013 jqduang.com
-</div><!-- /footer -->
-<!-- <div class="dn">
-    <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?b2e33c0312c7235a7e13b0cf86eec840";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
-
-</div> -->
-
+@@include('./_footer.html')
 </body>
 </html>

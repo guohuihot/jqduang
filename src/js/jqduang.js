@@ -1,8 +1,8 @@
-/**
-* author : ahuing
-* date   : 2015-04-10
-* name   : jqDuang v1.15
-* modify : 2015-9-14 18:01:17
+/*!
+* @author : <%= author %>
+* @date   : 2015-04-10
+* @name   : <%= name %> v1.15
+* @modify : <%= date %>
  */
 !function ($) {
     var Duang = function (self, opt) {
