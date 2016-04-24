@@ -1,286 +1,338 @@
 /*!
 * @author : <%= author %>
 * @date   : 2015-04-10
-* @name   : <%= name %> v1.15
+* @name   : <%= name %> v1.16
 * @modify : <%= date %>
  */
-!function ($) {
-    var Duang = function (self, opt) {
-        this.o         = $.extend({}, Duang.defaults, opt)
-        this.$self     = $(self)
-        var aObj       = this.o.obj.split('|');
-        this.$obj      = this.$self.find(aObj[0])
-        this.$objExt   = $(aObj[1])
+
+!function ($, win) {
+    'use strict';
+    var Duang = function (element, options) {
+        this.o         = options
+        this.$element     = $(element)
+        this.$obj      = this.$element.find(options.obj)
+        this.$objExt   = this.$element.find(options.objExt)
         // 如果正常的切换对象不存在,将扩展对象作为正常的对象,扩展对象清空
         if (!this.$obj.length) {
             this.$obj = this.$objExt
-            this.$objExt = []
-        };
-        /*aObj.shift( );
-        if (aObj.length) this.$objExt   = $.map(aObj, function (n) {
-            return $(n);
-        })*/
-// 方向
-        this.dire    = $.inArray(this.o.effect, ['left','leftLoop','leftMarqueue']) < 0 && 'top' || 'left'
-        this.objAttr = this.dire == 'top' && 'height' || 'width'
-        this.index   = this.o.index
-        this.effect  = this.o.effect.replace(this.dire, '')
-        this.L       = this.$obj.length
-        // 分页
-        this.pages   = !this.effect 
-        // 不循环滚动
-        && Math.ceil((this.L - this.o.visible) / this.o.steps) + 1 
-        // 循环滚动
-        || Math.ceil(this.L / this.o.steps); 
-        
-        this.WH      = {
-            width    : this.$obj.outerWidth(true)
-            , height : this.$obj.outerHeight(true)
+            delete this.$objExt;
         }
+
+        this.len = this.$obj.length
+        // 运动方向
+        options.dire = options.effect.indexOf('left') == 0 && 'left' || 'top';
+        this.effect = options.effect.replace(options.dire, '')
+            // 分页
+        this.pages = !this.effect
+            // 不循环滚动
+            && Math.ceil((this.len - options.visible) / options.steps) + 1
+            // 循环滚动 marqueue loop
+            || Math.ceil(this.len / options.steps);
+        
     }
 
-    Duang.defaults = {
-        obj           : 'li'
-        , cell        : ''
-        , trigger     : 'mouseover' //click mouseover
-        , effect      : 'fade' //效果 fold left leftLoop
-        , speed       : 500 //播放速度
-        , index       : 0 //默认索引
-        , autoplay    : 1 //自动播放
-        , interval    : 3000 //播放间隔时间
-        , prevbtn     : '' //上一个
-        , nextbtn     : '' //下一个
-        , delay       : 150 //延迟时间,优化click or mouseover时延迟切换
-        , easing      : 'swing'
-        // , wrapsize : 0 //外层大小
-        , visible     : 1 //可见数量
-        , steps       : 1 //每次切换的数量
-        , overstop    : 1 //鼠标悬停
-        , showtit     : 0
-        , pagewrap    : ''
-        , btnLoop     : 1
-        , wheel       : 0
-        , actclass    : 'act'
+    Duang.DEFAULTS = {
+        obj: 'li',
+        cell: null,
+        //click mouseover
+        trigger: 'mouseover',
+        //效果 fold left leftLoop leftMarqueue top topLoop topMarqueue weibo
+        effect: 'fade',
+        //播放速度
+        speed: 500,
+        //默认索引
+        index: 0,
+        //自动播放
+        autoplay: 1,
+        //播放间隔时间
+        interval: 3000,
+        //上一个
+        prevbtn: null,
+        //下一个
+        nextbtn: null,
+        //延迟时间,优化click or mouseover时延迟切换
+        delay: 150,
+        easing: 'swing',
+        //外层大小
+        // wrapsize : 0 ,
+
+        //可见数量
+        visible: 1,
+        //每次切换的数量
+        steps: 1,
+        //鼠标悬停
+        overstop: 1,
+        showtit: 0,
+        pagewrap: null,
+        btnLoop: 1,
+        wheel: 0,
+        actclass: 'act'
     }
     Duang.prototype = {
-        init : function () {
-            var _this = this
-            , o       = _this.o
-            , $obj    = _this.$obj
-            , $objP   = $obj.parent()
-            , $objPP  = $objP.parent();
+        init : function() {
+            var _self = this,
+                o = _self.o,
+                ppCss = {
+                    position: 'relative',
+                    overflow: 'hidden'
+                },
+                $obj, $objP, $objPP, attr, $cells, t;
             
-            if (_this.pages <= 1 || _this.L <= o.visible) return;
-            // o.wrapsize && (_this.WH[_this.objAttr] = o.wrapsize);
-            !o.speed && (_this.effect = 'fade');
+            _self.index = o.index;
+            attr        = o.dire == 'top' && 'height' || 'width';
+            $obj        = _self.$obj;
+            $objP       = $obj.parent();
+            $objPP      = $objP.parent();
+            
+            if (_self.pages <= 1 || _self.len <= o.visible) return;
+            if (!o.speed) {
+                _self.effect = 'fade';
+            }
 
+            $obj.css({
+                float : o.dire == 'top' ? 'none' : 'left'
+            });
+            // 每个单元的尺寸
+            o.size = $obj[o.dire == 'top' ? 'outerHeight' : 'outerWidth'](true);
+            // 加上作用域
+            o.trigger += '.duang';
 
-            switch(_this.effect){
+            switch(_self.effect){
                 case 'fade' :
                     $obj.css({
                         display : 'none'
                     }).eq(o.index).show();
 
-                    // $objPP.css(_this.WH);
                     break;
                 case 'fold' :
                     $obj.css({
-                        position  : 'absolute'
-                        , display : 'none'
-                        , left    : 0
-                        , top     : 0
+                        position: 'absolute',
+                        display: 'none',
+                        left: 0,
+                        top: 0
                     }).eq(o.index).show();
 
-                    var ppCss = _this.WH;
-                    ppCss['position'] = 'relative';
+                    ppCss[attr] = o.size;
                     $objPP.css(ppCss);
                     break;
                 case 'weibo' :
                     $objP.css('position', 'relative');
-                    var ppCss = {position:'relative',overflow: 'hidden'};
-                    // ppCss[_this.objAttr] = o.wrapsize || _this.WH[this.objAttr] * o.visible
-                    ppCss[_this.objAttr] = _this.WH[this.objAttr] * o.visible
+                    ppCss[attr] = o.size * o.visible;
                     $objPP.css(ppCss);
                     break;
                 case 'Marqueue' :
                 default :
-                    $obj.css({
-                        float : _this.dire == 'top' ? 'none' : 'left'
-                    });
+                    var pCss = {
+                            position: 'relative',
+                            overflow: 'hidden'
+                        };
 
-                    var pCss = {position : 'relative', overflow : 'hidden'};
-                    pCss[_this.dire] = -_this.WH[_this.objAttr] * o.index;
-                    pCss[_this.objAttr] = 9999;
+                    pCss[o.dire] = -o.size * o.index;
+                    pCss[attr] = 9999;
 
-                    if (_this.effect) {
-                        _this.$obj = $objP
+                    if (_self.effect) {
+                        // 循环时处理
+                        _self.$obj = $objP
                                     .append($obj.slice(0, o.visible).clone())
                                     .prepend($obj.slice($obj.length - o.visible).clone())
                                     .children();
-
-                        pCss[_this.dire] = -(o.visible + o.index * o.steps) * _this.WH[_this.objAttr];
+                        // 定位到初始值
+                        pCss[o.dire] = -(o.visible + o.index * o.steps) * o.size;
                         // marqueue
-                        if (_this.effect == 'Marqueue') {
-                            _this.s = -1;
-                            _this.scrollSize = _this.WH[_this.objAttr] * _this.L;
+                        if (_self.effect == 'Marqueue') {
+                            _self.s = -1;
+                            // 滚动的总大小
+                            _self.scrollSize = o.size * _self.len;
                         }
                     };
                     $objP.css(pCss);
-
-                    var ppCss = {overflow: 'hidden', position: 'relative'};
-                    // ppCss[_this.objAttr] = o.wrapsize || _this.WH[_this.objAttr] * o.visible;
-                    // 处理最后的边距,让整个滚动图片两边对齐
+                    
                     var $obj1 = $obj.eq(0);
-                    var marginMore = parseInt($obj1.css('margin-' + this.dire)) - parseInt($obj1.css('margin-' + (this.dire == 'left' ? 'right' : 'bottom')));
-                    // 设置外层的尺寸
-                    // ppCss[_this.objAttr] = o.wrapsize || _this.WH[_this.objAttr] * o.visible + marginMore;
-                    ppCss[_this.objAttr] = _this.WH[_this.objAttr] * o.visible + marginMore;
+                    // 计算多余的边距,让滚动外框两边对齐
+                    var marginMore = parseInt($obj1.css('margin-' + o.dire)) - parseInt($obj1.css('margin-' + (o.dire == 'left' ? 'right' : 'bottom')));
+                    ppCss[attr] = o.size * o.visible + marginMore;
                     
                     $objPP.css(ppCss);
             }
 
-            // 分页
-            var t;
-            if (o.cell && _this.effect != 'Marqueue') {
-                var aCell = o.cell.split('|');
+       /*     _self.setup();
+        },
+        setup: function() {
+            var _self = this,
+                o = _self.o,
+                $obj, $objP, $objPP, attr, $cells, t;
 
-                _this.$cells = aCell.length > 1 ? _this.$self.find(aCell[1]) : _this.$self.find(aCell[0]).children();
-                if (_this.$cells.length) _this.$cells = _this.$cells.slice(0, _this.pages);
-                else {
-                    var __html = '';
-                    for (var i = 0; i < _this.pages; i++) __html += '<i>' + (i + 1) + '</i>';
-                    _this.$cells = $(__html).appendTo(_this.$self.find(aCell[0]));
+            // 如果$cells存在,说明已经setup
+            if (_self.$cells) return;
+
+            $obj        = _self.$obj;
+            $objP       = $obj.parent();
+            $objPP      = $objP.parent();
+            */
+            // 分页
+            if (o.cell && _self.effect != 'Marqueue') {
+
+                $cells = _self.$element.find(o.cell).children();
+                
+                if ($cells.length) {
+                    $cells = $cells.slice(0, _self.pages);
+                } else {
+                    var __html = [];
+                    for (var i = 0; i < _self.pages; i++) {
+                        __html.push('<i>' + (i + 1) + '</i>');
+                    }
+                    $cells = $(__html.join('')).appendTo(_self.$element.find(o.cell));
                 }
-                _this.$cells[o.trigger](function() {
-                    clearTimeout(t);
-                    _this.loopNext = _this.$cells.index(this);
-                    t = setTimeout(function () {
-                        _this.play(_this.loopNext);
-                    }, o.delay)
-                    //点击时阻止跳转
-                    if(o.trigger == 'click') return false;
-                })
-                .eq(_this.index).addClass(o.actclass);
+
+                $cells.on(o.trigger, function() {
+                        clearTimeout(t);
+                        _self.loopNext = $cells.index(this);
+                        t = setTimeout(function() {
+                                _self.play(_self.loopNext);
+                            }, o.delay)
+                            //点击时阻止跳转
+                        if (o.trigger == 'click.duang') return false;
+                    })
+                    .eq(_self.index).addClass(o.actclass);
+
+                _self.$cells = $cells; 
             }; 
 
             // 自动播放
-            if (o.autoplay * 1) {
-                _this.start();
-                (o.overstop * 1) && 
-                    _this.$obj
-                    // $objPP
-                    .add(_this.$cells)
-                    .add(o.prevbtn && _this.effect != 'Marqueue' && o.prevbtn + ',' + o.nextbtn || null)
-                    .on('mouseover', $.proxy(_this.stop, _this))
-                    .on('mouseout', $.proxy(_this.start, _this))
-                    /*
-                    .on('mouseover mouseout', function(e) {
-                        console.log(this);
-                        _this[e.type == 'mouseover' ? 'stop' : 'start']();
-                    })*/
-            };
+            if (!!o.autoplay) {
+                _self.start();
+                (!!o.overstop) && 
+                    /*$objPP
+                    .add($cells)
+                    .add(o.prevbtn + ',' + o.nextbtn)
+                    .on('mouseenter', $.proxy(_self.stop, _self))
+                    .on('mouseleave', $.proxy(_self.start, _self))*/
+                    _self.$obj
+                    .add($cells)
+                    .add(o.prevbtn && _self.effect != 'Marqueue' && o.prevbtn + ',' + o.nextbtn || null)
+                    .on('mouseover', $.proxy(_self.stop, _self))
+                    .on('mouseout', $.proxy(_self.start, _self))
+            }
 
             // 显示标题
-            o.showtit * 1 && o.visible == 1 && $objPP.after('<a class="tit-duang" target="_blank" href="' + $obj.eq(o.index).data('url') + '">' + $obj.eq(o.index).data('title') + '</a>')
+            if (!!o.showtit && o.visible == 1) {
+                $objPP.after('<a class="tit-duang" target="_blank" href="' + $obj.eq(o.index).data('url') + '">' + $obj.eq(o.index).data('title') + '</a>')
+            }
  
             // 页码
-            o.pagewrap && _this.$self.find(o.pagewrap).html(_this.index * 1 + 1 + '/' + _this.pages);
+            if (o.pagewrap) {
+                _self.$element.find(o.pagewrap).html(_self.index * 1 + 1 + '/' + _self.pages);
+            }
 
             // 上一个下一个
-            o.prevbtn && goBtn('prev') && goBtn('next')
+            if (o.prevbtn) {
+                _fnBtn('prev') && _fnBtn('next')
+            }
 
-            function goBtn(p) {
-                var $pnBtn = _this.$self.find(o[p + 'btn']);
-                !(o.btnLoop * 1) && p == 'prev' && $pnBtn.addClass('disabled');
-                $pnBtn[_this.effect == 'Marqueue' ? o.trigger : 'click'](function() {
+            function _fnBtn(p) {
+                var $pnBtn = _self.$element.find(o[p + 'btn']);
+                !o.btnLoop && p == 'prev' && $pnBtn.addClass('disabled');
+                $pnBtn.on(_self.effect == 'Marqueue' ? o.trigger : 'click', function() {
                     if ($(this).hasClass('disabled')) return;
-                    _this.s = p == 'next' ? -1 : 1;
-                    if (_this.effect == 'Marqueue') _this.next();
-                    else _this[p]()
+                    _self.s = p == 'next' ? -1 : 1;
+                    if (_self.effect == 'Marqueue') _self.next();
+                    else _self[p]()
                 }).attr({
                     unselectable : 'on'
                     , onselectstart : 'return false;'
                 });
                 return true;
             }
-            // 鼠标滚动切换
-            o.wheel * 1 && $.fn.mousewheel && $objPP.mousewheel(function(e, d) {
-                clearTimeout(t);
-                t = setTimeout(function () {
-                    _this[d > 0 ? 'prev' : 'next']()
-                }, 100)
-            });
-            // 处理扩展的切换对象
-            /*_this.$objExt && $.each(_this.$objExt, function (j, e) {
-                e.css('display','none').eq(o.index).show()
-            });*/
-            _this.$objExt.length > o.index && _this.$objExt.css('display','none').eq(o.index).show();
+            if (_self.$objExt.length > o.index) {
+                _self.$objExt.css('display','none').eq(o.index).show();
+            }
+        },
+        destroy: function() {
+            var _self = this,
+                o = this.o;
 
-        }
-        , start : function () {
+            _self.stop();
+            _self.$element.removeData('jqDuang');
+            _self.$element.find(o.prevbtn + ',' + o.nextbtn).off('click mouseover')
+            _self.$cells.off(o.trigger);
+            delete _self.$cells;
+        },
+        start: function() {
             clearInterval(this.t1);
             this.t1 = setInterval($.proxy(this.next, this), this.o.interval);
-        }
-        , stop : function () {
+        },
+        stop: function() {
             clearInterval(this.t1);
-        }
-        , next : function () {
-            this.play(this.effect != 'Marqueue' && (this.loopNext = this.index + 1) % this.pages);
-        }
-        , prev : function () {
+        },
+        next: function() {
+            this.play(this.effect != 'Marqueue' && (this.loopNext = this.index + 1) % this.pages, 1);
+        },
+        prev: function() {
             this.loopNext = this.index - 1;
-            this.play((this.loopNext + this.pages) % this.pages);
-        }
-        , play : function (next) {
-            var _this  = this
-            , o        = _this.o
-            , $obj     = _this.$obj
-            , $objP    = $obj.parent()
-            , loopNext = _this.loopNext;
+            this.play((this.loopNext + this.pages) % this.pages, 1);
+        },
+        play: function(next, isClick) {
+            var _self    = this,
+                o        = _self.o,
+                $obj     = _self.$obj,
+                $objP    = $obj.parent(),
+                loopNext = _self.loopNext,
+                pCss     = {},
+                size     = o.size;
 
-            if (_this.index == next && _this.effect != 'Marqueue') return;
+            if (_self.index == next && _self.effect != 'Marqueue') return;
 
-            _this.$self.trigger('beforeFun');
-            switch(_this.effect){
+            _self.$element.trigger('before.duang');
+            switch(_self.effect){
                 case 'fade' :
-                    $obj.eq(_this.index).hide()
+                    $obj.eq(_self.index).hide()
                     $obj.eq(next).animate({opacity: 'show'}, o.speed, o.easing);
                     break;
                 case 'fold' :
-                    $obj.stop(true, true).eq(_this.index)
-                    .animate({opacity: 'hide'}, o.speed, o.easing);
+                    $obj.stop(true, true).eq(_self.index)
+                        .animate({
+                            opacity: 'hide'
+                        }, o.speed, o.easing);
 
                     $obj.eq(next)
-                    .animate({opacity: 'show'}, o.speed, o.easing);
+                        .animate({
+                            opacity: 'show'
+                        }, o.speed, o.easing);
                     break;
                 case 'Marqueue' :
-                    $objP.css(_this.dire, function (i, v) {
-                        var offset = parseInt(v) + _this.s;
-                        if (offset <= -_this.scrollSize) offset = 0;
-                        else if (offset >= 0) offset = - _this.scrollSize;
+                    $objP.css(o.dire, function(i, v) {
+                        var offset = parseInt(v) + _self.s;
+                        if (offset <= -_self.scrollSize) {
+                            offset = 0;
+                        } else if (offset >= 0) {
+                            offset = -_self.scrollSize;
+                        }
                         return offset;
                     });
                     break;
                 case 'weibo' :
-                        var  pCss = {};
-                        pCss[_this.dire] = _this.WH[_this.objAttr] * 9 / 8;
+                        pCss[o.dire] = size * 9 / 8;
 
                         $objP.stop(true, true)
-                        .animate(pCss, o.speed, o.easing, function() {
-                            var oLi = $objP.children()[$obj.length - 1];
-                            oLi.style.display = 'none';
-                            $objP[0].insertBefore(oLi, $objP[0].children[0]);
-                            $objP[0].style.top = 0;
-                            $(oLi).fadeIn()
-                        });
+                            .animate(pCss, o.speed, o.easing, function() {
+                                var oLi = $objP.children()[$obj.length - 1];
+                                oLi.style.display = 'none';
+                                $objP[0].insertBefore(oLi, $objP[0].children[0]);
+                                $objP[0].style.top = 0;
+                                $(oLi).fadeIn()
+                            });
                     break;
                 default :
-                    var mm = 0;
-                    if (this.effect == 'Loop') {
-                        if ($objP.is(':animated')) return false;;
-                        var offset, _mod = _this.L % o.steps; 
+                    var mm = 0, 
+                        _mod = _self.len % o.steps,
+                        offset;
+
+                    if (_self.effect == 'Loop') {
+                        /*if ($objP.is(':animated')) {
+                            // return false;
+                        }*/
                         // 第一页
-                        if (_mod && loopNext == _this.pages) {
+                        if (_mod && loopNext == _self.pages) {
                             mm = _mod - o.steps;
                         }
                         // 最后一页
@@ -288,61 +340,68 @@
                             mm = o.steps - _mod;
                         }
                         offset = loopNext * o.steps + o.visible + mm;
-                        var comFun = function () {
-                            $objP.css(_this.dire, -_this.WH[_this.objAttr] * (next * o.steps + o.visible));
+                        if (isClick) {
+                            $objP.css(o.dire, -size * (this.index * o.steps + o.visible));
                         }
+                    } else if (loopNext == _self.pages - 1 || loopNext == - 1) {
+                        mm = _self.len - next * o.steps - o.visible
                     }
-                    else if (loopNext == _this.pages - 1 || loopNext == - 1) {
-                        mm = _this.L - next * o.steps - o.visible
-                    };
 
-                    // offset = offset || next * o.steps + mm;
-                    // offset = this.effect == 'Loop' && offset || next * o.steps + mm;
+                    pCss[o.dire] = -size * (_self.effect == 'Loop' ? offset : next * o.steps + mm);
 
-                    var pCss = {};
-                    // pCss[_this.dire] = -_this.WH[_this.objAttr] * offset;
-                    pCss[_this.dire] = -_this.WH[_this.objAttr] * (this.effect == 'Loop' ? offset : next * o.steps + mm);
-
-                    $objP.stop(true)
-                    .animate(pCss, o.speed, o.easing, comFun);
+                    $objP.stop(true, false).animate(pCss, o.speed, o.easing);
+                    pCss = null;
             } // switch end
             // 标题
-            if(o.showtit * 1 && o.visible == 1) {
-                var nextEleData = $obj.eq(next + (this.effect == 'Loop' ? 1 : 0)).data();
-                _this.$self.find('.tit-duang').html(nextEleData.title)[0].href = nextEleData.url;
+            if(!!o.showtit && o.visible == 1) {
+                var nextEleData = $obj.eq(next + (_self.effect == 'Loop' ? 1 : 0)).data();
+                _self.$element.find('.tit-duang').html(nextEleData.title)[0].href = nextEleData.url;
             }
             // 分页
-            o.pagewrap && _this.$self.find(o.pagewrap).html(next + 1 + '/' + _this.pages);
-            // 控制按钮
-            o.cell && _this.$cells.removeClass(o.actclass).eq(next).addClass(o.actclass)
-            // 扩展对象, next过大时没有扩展对象,不执行
-            _this.$objExt.length > next && _this.$objExt.css('display','none').eq(next).show();
-            // 
-            _this.index = next;
-            // 按钮循环
-            if (!(o.btnLoop * 1) && o.prevbtn) {
-                _this.$self.find(o.prevbtn + ',' + o.nextbtn).removeClass('disabled');
-                next == 0 && _this.$self.find(o.prevbtn).addClass('disabled');
-                next == _this.pages - 1 && _this.$self.find(o.nextbtn).addClass('disabled');
+            if (o.pagewrap) {
+                _self.$element.find(o.pagewrap).html(next + 1 + '/' + _self.pages);
             }
-            _this.$self.trigger('afterFun',[next]);
+            // 控制按钮
+            if (o.cell) {
+                _self.$cells.removeClass(o.actclass).eq(next).addClass(o.actclass)
+            }
+            // 扩展对象, next过大时没有扩展对象,不执行
+            if (_self.$objExt.length > next) {
+                _self.$objExt.css('display','none').eq(next).show();
+            }
+            // 
+            _self.index = next;
+            // 按钮循环
+            if (!o.btnLoop && o.prevbtn) {
+                _self.$element.find(o.prevbtn + ',' + o.nextbtn).removeClass('disabled');
+                next == 0 && _self.$element.find(o.prevbtn).addClass('disabled');
+                next == _self.pages - 1 && _self.$element.find(o.nextbtn).addClass('disabled');
+            }
+            _self.$element.trigger('after.duang',[next]);
         }
 
     }
 
     function Plugin(option) {
         return option == 'index' ? this.data('jqDuang').index : this.each(function () {
-            var $this   = $(this)
-            var data    = $this.data('jqDuang')
-            var options = typeof option == 'object' && option
+            var $this   = $(this),
+                data    = $this.data('jqDuang'),
+                options = $.extend({}, Duang.DEFAULTS, $this.data(), typeof option == 'object' && option),
+                p;
 
             if (!data) {
-                $this.data('jqDuang', (data = new Duang(this, options)));
+                if (option == 'destroy') {
+                    return false;
+                }
+                $this.data('jqDuang', data = new Duang(this, options));
                 data.init();
             }
-
-            if (typeof option == 'string') data[option]()
-            else if(typeof option == 'number') data.play(data.loopNext = option)
+            if (typeof option == 'string') {
+                data[option]()
+            } else if (typeof option == 'number') {
+                data.play(data.loopNext = option)
+            }
+            options = null;
         })
     }
 
@@ -356,10 +415,10 @@
         return this
     }
 
-    $(window).on('load', function () {
-        $('.jqDuang').each(function() {
+    $(win).on('load', function () {
+        $('[data-duang="1"]').each(function() {
             var $this = $(this);
             Plugin.call($this, $this.data())
         });
     })
-}(jQuery);
+}(jQuery, window);

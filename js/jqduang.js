@@ -1,7 +1,425 @@
 /*!
-* @author : ahuing
+* @author : <%= author %>
 * @date   : 2015-04-10
-* @name   : jqduang.js v1.15
-* @modify : 2016-04-21 01:41:22
+* @name   : <%= name %> v1.16
+* @modify : <%= date %>
  */
-!function($){function e(e){return"index"==e?this.data("jqDuang").index:this.each(function(){var t=$(this),i=t.data("jqDuang"),n="object"==typeof e&&e;i||(t.data("jqDuang",i=new s(this,n)),i.init()),"string"==typeof e?i[e]():"number"==typeof e&&i.play(i.loopNext=e)})}var t,s=function(e,t){this.o=$.extend({},s.defaults,t),this.$self=$(e);var i=this.o.obj.split("|");this.$obj=this.$self.find(i[0]),this.$objExt=$(i[1]),this.$obj.length||(this.$obj=this.$objExt,this.$objExt=[]),this.dire=$.inArray(this.o.effect,["left","leftLoop","leftMarqueue"])<0&&"top"||"left",this.objAttr="top"==this.dire&&"height"||"width",this.index=this.o.index,this.effect=this.o.effect.replace(this.dire,""),this.L=this.$obj.length,this.pages=!this.effect&&Math.ceil((this.L-this.o.visible)/this.o.steps)+1||Math.ceil(this.L/this.o.steps),this.WH={width:this.$obj.outerWidth(!0),height:this.$obj.outerHeight(!0)}};s.defaults={obj:"li",cell:"",trigger:"mouseover",effect:"fade",speed:500,index:0,autoplay:1,interval:3e3,prevbtn:"",nextbtn:"",delay:150,easing:"swing",visible:1,steps:1,overstop:1,showtit:0,pagewrap:"",btnLoop:1,wheel:0,actclass:"act"},s.prototype={init:function(){function e(e){var t=f.$self.find(d[e+"btn"]);return!(1*d.btnLoop)&&"prev"==e&&t.addClass("disabled"),t["Marqueue"==f.effect?d.trigger:"click"](function(){$(this).hasClass("disabled")||(f.s="next"==e?-1:1,"Marqueue"==f.effect?f.next():f[e]())}).attr({unselectable:"on",onselectstart:"return false;"}),!0}var t,s,i,n,a,o,l,r,f=this,d=f.o,c=f.$obj,p=c.parent(),h=p.parent();if(!(f.pages<=1||f.L<=d.visible)){switch(!d.speed&&(f.effect="fade"),f.effect){case"fade":c.css({display:"none"}).eq(d.index).show();break;case"fold":c.css({position:"absolute",display:"none",left:0,top:0}).eq(d.index).show(),t=f.WH,t["position"]="relative",h.css(t);break;case"weibo":p.css("position","relative"),t={position:"relative",overflow:"hidden"},t[f.objAttr]=f.WH[this.objAttr]*d.visible,h.css(t);break;case"Marqueue":default:c.css({"float":"top"==f.dire?"none":"left"}),s={position:"relative",overflow:"hidden"},s[f.dire]=-f.WH[f.objAttr]*d.index,s[f.objAttr]=9999,f.effect&&(f.$obj=p.append(c.slice(0,d.visible).clone()).prepend(c.slice(c.length-d.visible).clone()).children(),s[f.dire]=-(d.visible+d.index*d.steps)*f.WH[f.objAttr],"Marqueue"==f.effect&&(f.s=-1,f.scrollSize=f.WH[f.objAttr]*f.L)),p.css(s),t={overflow:"hidden",position:"relative"},i=c.eq(0),n=parseInt(i.css("margin-"+this.dire))-parseInt(i.css("margin-"+("left"==this.dire?"right":"bottom"))),t[f.objAttr]=f.WH[f.objAttr]*d.visible+n,h.css(t)}if(d.cell&&"Marqueue"!=f.effect){if(o=d.cell.split("|"),f.$cells=o.length>1?f.$self.find(o[1]):f.$self.find(o[0]).children(),f.$cells.length)f.$cells=f.$cells.slice(0,f.pages);else{for(l="",r=0;r<f.pages;r++)l+="<i>"+(r+1)+"</i>";f.$cells=$(l).appendTo(f.$self.find(o[0]))}f.$cells[d.trigger](function(){return clearTimeout(a),f.loopNext=f.$cells.index(this),a=setTimeout(function(){f.play(f.loopNext)},d.delay),"click"==d.trigger?!1:void 0}).eq(f.index).addClass(d.actclass)}1*d.autoplay&&(f.start(),1*d.overstop&&f.$obj.add(f.$cells).add(d.prevbtn&&"Marqueue"!=f.effect&&d.prevbtn+","+d.nextbtn||null).on("mouseover",$.proxy(f.stop,f)).on("mouseout",$.proxy(f.start,f))),1*d.showtit&&1==d.visible&&h.after('<a class="tit-duang" target="_blank" href="'+c.eq(d.index).data("url")+'">'+c.eq(d.index).data("title")+"</a>"),d.pagewrap&&f.$self.find(d.pagewrap).html(1*f.index+1+"/"+f.pages),d.prevbtn&&e("prev")&&e("next"),1*d.wheel&&$.fn.mousewheel&&h.mousewheel(function(e,t){clearTimeout(a),a=setTimeout(function(){f[t>0?"prev":"next"]()},100)}),f.$objExt.length>d.index&&f.$objExt.css("display","none").eq(d.index).show()}},start:function(){clearInterval(this.t1),this.t1=setInterval($.proxy(this.next,this),this.o.interval)},stop:function(){clearInterval(this.t1)},next:function(){this.play("Marqueue"!=this.effect&&(this.loopNext=this.index+1)%this.pages)},prev:function(){this.loopNext=this.index-1,this.play((this.loopNext+this.pages)%this.pages)},play:function(e){var t,s,i,n,a,o,l=this,r=l.o,f=l.$obj,d=f.parent(),c=l.loopNext;if(l.index!=e||"Marqueue"==l.effect){switch(l.$self.trigger("beforeFun"),l.effect){case"fade":f.eq(l.index).hide(),f.eq(e).animate({opacity:"show"},r.speed,r.easing);break;case"fold":f.stop(!0,!0).eq(l.index).animate({opacity:"hide"},r.speed,r.easing),f.eq(e).animate({opacity:"show"},r.speed,r.easing);break;case"Marqueue":d.css(l.dire,function(e,t){var s=parseInt(t)+l.s;return s<=-l.scrollSize?s=0:s>=0&&(s=-l.scrollSize),s});break;case"weibo":t={},t[l.dire]=9*l.WH[l.objAttr]/8,d.stop(!0,!0).animate(t,r.speed,r.easing,function(){var e=d.children()[f.length-1];e.style.display="none",d[0].insertBefore(e,d[0].children[0]),d[0].style.top=0,$(e).fadeIn()});break;default:if(s=0,"Loop"==this.effect){if(d.is(":animated"))return!1;n=l.L%r.steps,n&&c==l.pages?s=n-r.steps:n&&-1==c&&(s=r.steps-n),i=c*r.steps+r.visible+s,a=function(){d.css(l.dire,-l.WH[l.objAttr]*(e*r.steps+r.visible))}}else(c==l.pages-1||-1==c)&&(s=l.L-e*r.steps-r.visible);t={},t[l.dire]=-l.WH[l.objAttr]*("Loop"==this.effect?i:e*r.steps+s),d.stop(!0).animate(t,r.speed,r.easing,a)}1*r.showtit&&1==r.visible&&(o=f.eq(e+("Loop"==this.effect?1:0)).data(),l.$self.find(".tit-duang").html(o.title)[0].href=o.url),r.pagewrap&&l.$self.find(r.pagewrap).html(e+1+"/"+l.pages),r.cell&&l.$cells.removeClass(r.actclass).eq(e).addClass(r.actclass),l.$objExt.length>e&&l.$objExt.css("display","none").eq(e).show(),l.index=e,1*r.btnLoop||!r.prevbtn||(l.$self.find(r.prevbtn+","+r.nextbtn).removeClass("disabled"),0==e&&l.$self.find(r.prevbtn).addClass("disabled"),e==l.pages-1&&l.$self.find(r.nextbtn).addClass("disabled")),l.$self.trigger("afterFun",[e])}}},t=$.fn.jqDuang,$.fn.jqDuang=e,$.fn.jqDuang.Constructor=s,$.fn.jqDuang.noConflict=function(){return $.fn.jqDuang=t,this},$(window).on("load",function(){$(".jqDuang").each(function(){var t=$(this);e.call(t,t.data())})})}(jQuery);
+
+!function ($, win) {
+    'use strict';
+    var Duang = function (element, options) {
+        this.o         = options
+        this.$element     = $(element)
+        this.$obj      = this.$element.find(options.obj)
+        this.$objExt   = this.$element.find(options.objExt)
+        // 如果正常的切换对象不存在,将扩展对象作为正常的对象,扩展对象清空
+        if (!this.$obj.length) {
+            this.$obj = this.$objExt
+            delete this.$objExt;
+        }
+
+        this.len = this.$obj.length
+        // 运动方向
+        options.dire = options.effect.indexOf('left') == 0 && 'left' || 'top';
+        this.effect = options.effect.replace(options.dire, '')
+            // 分页
+        this.pages = !this.effect
+            // 不循环滚动
+            && Math.ceil((this.len - options.visible) / options.steps) + 1
+            // 循环滚动 marqueue loop
+            || Math.ceil(this.len / options.steps);
+        
+    }
+
+    Duang.DEFAULTS = {
+        obj: 'li',
+        cell: null,
+        //click mouseover
+        trigger: 'mouseover',
+        //效果 fold left leftLoop leftMarqueue top topLoop topMarqueue weibo
+        effect: 'fade',
+        //播放速度
+        speed: 500,
+        //默认索引
+        index: 0,
+        //自动播放
+        autoplay: 1,
+        //播放间隔时间
+        interval: 3000,
+        //上一个
+        prevbtn: null,
+        //下一个
+        nextbtn: null,
+        //延迟时间,优化click or mouseover时延迟切换
+        delay: 150,
+        easing: 'swing',
+        //外层大小
+        // wrapsize : 0 ,
+
+        //可见数量
+        visible: 1,
+        //每次切换的数量
+        steps: 1,
+        //鼠标悬停
+        overstop: 1,
+        showtit: 0,
+        pagewrap: null,
+        btnLoop: 1,
+        wheel: 0,
+        actclass: 'act'
+    }
+    Duang.prototype = {
+        init : function() {
+            var _self = this,
+                o = _self.o,
+                ppCss = {
+                    position: 'relative',
+                    overflow: 'hidden'
+                },
+                $obj, $objP, $objPP, attr, $cells, t;
+            
+            _self.index = o.index;
+            attr        = o.dire == 'top' && 'height' || 'width';
+            $obj        = _self.$obj;
+            $objP       = $obj.parent();
+            $objPP      = $objP.parent();
+            
+            if (_self.pages <= 1 || _self.len <= o.visible) return;
+            if (!o.speed) {
+                _self.effect = 'fade';
+            }
+
+            $obj.css({
+                float : o.dire == 'top' ? 'none' : 'left'
+            });
+            // 每个单元的尺寸
+            o.size = $obj[o.dire == 'top' ? 'outerHeight' : 'outerWidth'](true);
+            // 加上作用域
+            o.trigger += '.duang';
+
+            switch(_self.effect){
+                case 'fade' :
+                    $obj.css({
+                        display : 'none'
+                    }).eq(o.index).show();
+
+                    break;
+                case 'fold' :
+                    $obj.css({
+                        position: 'absolute',
+                        display: 'none',
+                        left: 0,
+                        top: 0
+                    }).eq(o.index).show();
+
+                    ppCss[attr] = o.size;
+                    $objPP.css(ppCss);
+                    break;
+                case 'weibo' :
+                    $objP.css('position', 'relative');
+                    ppCss[attr] = o.size * o.visible;
+                    $objPP.css(ppCss);
+                    break;
+                case 'Marqueue' :
+                default :
+                    var pCss = {
+                            position: 'relative',
+                            overflow: 'hidden'
+                        };
+
+                    pCss[o.dire] = -o.size * o.index;
+                    pCss[attr] = 9999;
+
+                    if (_self.effect) {
+                        // 循环时处理
+                        _self.$obj = $objP
+                                    .append($obj.slice(0, o.visible).clone())
+                                    .prepend($obj.slice($obj.length - o.visible).clone())
+                                    .children();
+                        // 定位到初始值
+                        pCss[o.dire] = -(o.visible + o.index * o.steps) * o.size;
+                        // marqueue
+                        if (_self.effect == 'Marqueue') {
+                            _self.s = -1;
+                            // 滚动的总大小
+                            _self.scrollSize = o.size * _self.len;
+                        }
+                    };
+                    $objP.css(pCss);
+                    
+                    var $obj1 = $obj.eq(0);
+                    // 计算多余的边距,让滚动外框两边对齐
+                    var marginMore = parseInt($obj1.css('margin-' + o.dire)) - parseInt($obj1.css('margin-' + (o.dire == 'left' ? 'right' : 'bottom')));
+                    ppCss[attr] = o.size * o.visible + marginMore;
+                    
+                    $objPP.css(ppCss);
+            }
+
+       /*     _self.setup();
+        },
+        setup: function() {
+            var _self = this,
+                o = _self.o,
+                $obj, $objP, $objPP, attr, $cells, t;
+
+            // 如果$cells存在,说明已经setup
+            if (_self.$cells) return;
+
+            $obj        = _self.$obj;
+            $objP       = $obj.parent();
+            $objPP      = $objP.parent();
+            */
+            // 分页
+            if (o.cell && _self.effect != 'Marqueue') {
+
+                $cells = _self.$element.find(o.cell).children();
+                
+                if ($cells.length) {
+                    $cells = $cells.slice(0, _self.pages);
+                } else {
+                    var __html = [];
+                    for (var i = 0; i < _self.pages; i++) {
+                        __html.push('<i>' + (i + 1) + '</i>');
+                    }
+                    $cells = $(__html.join('')).appendTo(_self.$element.find(o.cell));
+                }
+
+                $cells.on(o.trigger, function() {
+                        clearTimeout(t);
+                        _self.loopNext = $cells.index(this);
+                        t = setTimeout(function() {
+                                _self.play(_self.loopNext);
+                            }, o.delay)
+                            //点击时阻止跳转
+                        if (o.trigger == 'click.duang') return false;
+                    })
+                    .eq(_self.index).addClass(o.actclass);
+
+                _self.$cells = $cells; 
+            }; 
+
+            // 自动播放
+            if (!!o.autoplay) {
+                _self.start();
+                (!!o.overstop) && 
+                    /*$objPP
+                    .add($cells)
+                    .add(o.prevbtn + ',' + o.nextbtn)
+                    .on('mouseenter', $.proxy(_self.stop, _self))
+                    .on('mouseleave', $.proxy(_self.start, _self))*/
+                    _self.$obj
+                    .add($cells)
+                    .add(o.prevbtn && _self.effect != 'Marqueue' && o.prevbtn + ',' + o.nextbtn || null)
+                    .on('mouseover', $.proxy(_self.stop, _self))
+                    .on('mouseout', $.proxy(_self.start, _self))
+            }
+
+            // 显示标题
+            if (!!o.showtit && o.visible == 1) {
+                $objPP.after('<a class="tit-duang" target="_blank" href="' + $obj.eq(o.index).data('url') + '">' + $obj.eq(o.index).data('title') + '</a>')
+            }
+ 
+            // 页码
+            if (o.pagewrap) {
+                _self.$element.find(o.pagewrap).html(_self.index * 1 + 1 + '/' + _self.pages);
+            }
+
+            // 上一个下一个
+            if (o.prevbtn) {
+                _fnBtn('prev') && _fnBtn('next')
+            }
+
+            function _fnBtn(p) {
+                var $pnBtn = _self.$element.find(o[p + 'btn']);
+                !o.btnLoop && p == 'prev' && $pnBtn.addClass('disabled');
+                $pnBtn.on(_self.effect == 'Marqueue' ? o.trigger : 'click', function() {
+                    if ($(this).hasClass('disabled')) return;
+                    _self.s = p == 'next' ? -1 : 1;
+                    if (_self.effect == 'Marqueue') _self.next();
+                    else _self[p]()
+                }).attr({
+                    unselectable : 'on'
+                    , onselectstart : 'return false;'
+                });
+                return true;
+            }
+            if (_self.$objExt.length > o.index) {
+                _self.$objExt.css('display','none').eq(o.index).show();
+            }
+        },
+        destroy: function() {
+            var _self = this,
+                o = this.o;
+
+            _self.stop();
+            _self.$element.removeData('jqDuang');
+            _self.$element.find(o.prevbtn + ',' + o.nextbtn).off('click mouseover')
+            _self.$cells.off(o.trigger);
+            delete _self.$cells;
+        },
+        start: function() {
+            clearInterval(this.t1);
+            this.t1 = setInterval($.proxy(this.next, this), this.o.interval);
+        },
+        stop: function() {
+            clearInterval(this.t1);
+        },
+        next: function() {
+            this.play(this.effect != 'Marqueue' && (this.loopNext = this.index + 1) % this.pages, 1);
+        },
+        prev: function() {
+            this.loopNext = this.index - 1;
+            this.play((this.loopNext + this.pages) % this.pages, 1);
+        },
+        play: function(next, isClick) {
+            var _self    = this,
+                o        = _self.o,
+                $obj     = _self.$obj,
+                $objP    = $obj.parent(),
+                loopNext = _self.loopNext,
+                pCss     = {},
+                size     = o.size;
+
+            if (_self.index == next && _self.effect != 'Marqueue') return;
+
+            _self.$element.trigger('before.duang');
+            switch(_self.effect){
+                case 'fade' :
+                    $obj.eq(_self.index).hide()
+                    $obj.eq(next).animate({opacity: 'show'}, o.speed, o.easing);
+                    break;
+                case 'fold' :
+                    $obj.stop(true, true).eq(_self.index)
+                        .animate({
+                            opacity: 'hide'
+                        }, o.speed, o.easing);
+
+                    $obj.eq(next)
+                        .animate({
+                            opacity: 'show'
+                        }, o.speed, o.easing);
+                    break;
+                case 'Marqueue' :
+                    $objP.css(o.dire, function(i, v) {
+                        var offset = parseInt(v) + _self.s;
+                        if (offset <= -_self.scrollSize) {
+                            offset = 0;
+                        } else if (offset >= 0) {
+                            offset = -_self.scrollSize;
+                        }
+                        return offset;
+                    });
+                    break;
+                case 'weibo' :
+                        pCss[o.dire] = size * 9 / 8;
+
+                        $objP.stop(true, true)
+                            .animate(pCss, o.speed, o.easing, function() {
+                                var oLi = $objP.children()[$obj.length - 1];
+                                oLi.style.display = 'none';
+                                $objP[0].insertBefore(oLi, $objP[0].children[0]);
+                                $objP[0].style.top = 0;
+                                $(oLi).fadeIn()
+                            });
+                    break;
+                default :
+                    var mm = 0, 
+                        _mod = _self.len % o.steps,
+                        offset;
+
+                    if (_self.effect == 'Loop') {
+                        /*if ($objP.is(':animated')) {
+                            // return false;
+                        }*/
+                        // 第一页
+                        if (_mod && loopNext == _self.pages) {
+                            mm = _mod - o.steps;
+                        }
+                        // 最后一页
+                        else if (_mod && loopNext == -1) {
+                            mm = o.steps - _mod;
+                        }
+                        offset = loopNext * o.steps + o.visible + mm;
+                        if (isClick) {
+                            $objP.css(o.dire, -size * (this.index * o.steps + o.visible));
+                        }
+                    } else if (loopNext == _self.pages - 1 || loopNext == - 1) {
+                        mm = _self.len - next * o.steps - o.visible
+                    }
+
+                    pCss[o.dire] = -size * (_self.effect == 'Loop' ? offset : next * o.steps + mm);
+
+                    $objP.stop(true, false).animate(pCss, o.speed, o.easing);
+                    pCss = null;
+            } // switch end
+            // 标题
+            if(!!o.showtit && o.visible == 1) {
+                var nextEleData = $obj.eq(next + (_self.effect == 'Loop' ? 1 : 0)).data();
+                _self.$element.find('.tit-duang').html(nextEleData.title)[0].href = nextEleData.url;
+            }
+            // 分页
+            if (o.pagewrap) {
+                _self.$element.find(o.pagewrap).html(next + 1 + '/' + _self.pages);
+            }
+            // 控制按钮
+            if (o.cell) {
+                _self.$cells.removeClass(o.actclass).eq(next).addClass(o.actclass)
+            }
+            // 扩展对象, next过大时没有扩展对象,不执行
+            if (_self.$objExt.length > next) {
+                _self.$objExt.css('display','none').eq(next).show();
+            }
+            // 
+            _self.index = next;
+            // 按钮循环
+            if (!o.btnLoop && o.prevbtn) {
+                _self.$element.find(o.prevbtn + ',' + o.nextbtn).removeClass('disabled');
+                next == 0 && _self.$element.find(o.prevbtn).addClass('disabled');
+                next == _self.pages - 1 && _self.$element.find(o.nextbtn).addClass('disabled');
+            }
+            _self.$element.trigger('after.duang',[next]);
+        }
+
+    }
+
+    function Plugin(option) {
+        return option == 'index' ? this.data('jqDuang').index : this.each(function () {
+            var $this   = $(this),
+                data    = $this.data('jqDuang'),
+                options = $.extend({}, Duang.DEFAULTS, $this.data(), typeof option == 'object' && option),
+                p;
+
+            if (!data) {
+                if (option == 'destroy') {
+                    return false;
+                }
+                $this.data('jqDuang', data = new Duang(this, options));
+                data.init();
+            }
+            if (typeof option == 'string') {
+                data[option]()
+            } else if (typeof option == 'number') {
+                data.play(data.loopNext = option)
+            }
+            options = null;
+        })
+    }
+
+    var old = $.fn.jqDuang;
+
+    $.fn.jqDuang             = Plugin
+    $.fn.jqDuang.Constructor = Duang;
+
+    $.fn.jqDuang.noConflict = function () {
+        $.fn.jqDuang = old
+        return this
+    }
+
+    $(win).on('load', function () {
+        $('[data-duang="1"]').each(function() {
+            var $this = $(this);
+            Plugin.call($this, $this.data())
+        });
+    })
+}(jQuery, window);
+//# sourceMappingURL=E:\baidu\web\javascript\jquery_plugIn\jqduang\src\js\jqduang.js.map

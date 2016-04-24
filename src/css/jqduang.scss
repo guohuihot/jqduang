@@ -1,0 +1,193 @@
+/*!
+ * @name <%= name %>
+ * @author <%= author %>
+ * @date <%= date %>
+ */
+
+$btn-w: 30px;
+$btn-h: 60px;
+#slide {
+    position: relative;
+
+    overflow: hidden;
+
+    width: 560px;
+    height: 300px;
+    .thumb {
+        position: absolute;
+        z-index: 1;
+        right: 15px;
+        bottom: 15px;
+    }
+    .thumb i {
+        line-height: 100;
+
+        float: left;
+        overflow: hidden;
+
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+
+        cursor: pointer;
+
+        border-radius: 50%;
+        background: #fff;
+    }
+    .thumb i.act {
+        background: #c00;
+    }
+    .tit-duang {
+        font-size: 14px;
+        line-height: 40px;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        width: 100%;
+        height: 40px;
+
+        text-align: center;
+
+        color: #fff;
+        background: rgba(0,0,0,.5);
+        filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#77000000 ', endColorstr='#77000000 ');
+    }
+    .tit-duang:hover {
+        text-decoration: none;
+    }
+    .pagewrap {
+        font-size: 18px;
+
+        position: absolute;
+        bottom: 5px;
+        left: 10px;
+
+        color: #fff;
+    }
+
+	.prev, .next {
+	    font: bold 34px/#{$btn-h} simsun;
+
+	    position: absolute;
+	    z-index: 10;
+	    top: 50%;
+	    left: 0;
+
+	    overflow: hidden;
+
+	    width: $btn-w;
+	    height: $btn-h;
+	    margin-top: -$btn-h/2;
+
+	    cursor: pointer;
+	    text-align: center;
+	    text-decoration: none;
+
+	    color: #fff;
+	    background: rgba(0,0,0,.5);
+	    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#77000000 ', endColorstr='#77000000 ');
+	}
+	.prev {
+		border-radius: 0 $btn-w $btn-w 0;
+	}
+	.next {
+		border-radius: $btn-w 0 0 $btn-w;
+	    right: 0;
+	    left: auto;
+	}
+	.prev:hover,
+	.next:hover {
+	    text-decoration: none; 
+
+	    color: #c00;
+	    background: #000;
+	}
+}
+#scroll {
+    position: relative;
+	min-width: 300px;
+    background: #eee;
+    .imglist {
+        margin: 0 auto;
+    }
+    li {
+        float: left;
+
+        width: 150px;
+        margin: 10px;
+
+        text-align: center;
+    }
+    .imgcontrol {
+        line-height: 24px;
+
+        text-align: center;
+    }
+    .pagewrap {
+        font-size: 16px;
+
+        display: inline-block;
+
+        vertical-align: top;
+    }
+    .thumb {
+        display: inline-block;
+
+        height: 24px;
+
+        vertical-align: middle;
+    }
+    .thumb i {
+        line-height: 100;
+
+        display: inline-block;
+        overflow: hidden;
+
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+
+        cursor: pointer;
+
+        border-radius: 50%;
+        background: #000;
+    }
+    .thumb i.act {
+        background: #c00;
+    }
+    .btns {
+    	margin: -30px 30px;
+    	text-align: right;
+    }
+    .prev, .next {
+        font: bold 18px/24px simsun;
+
+        z-index: 10;
+
+        display: inline-block;
+        overflow: hidden;
+
+        width: 24px;
+
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+
+        color: #fff;
+        border-radius: 50%;
+        background: #000;
+    }
+    .prev:hover,
+    .next:hover {
+        text-decoration: none;
+    }
+    .disabled,
+    .disabled:hover {
+        background: #ddd;
+    }
+}
+
+
+:root .prev,:root .next{filter:none\9}
