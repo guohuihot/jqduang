@@ -9,7 +9,7 @@
     'use strict';
     var Duang = function (element, options) {
         this.o         = options
-        this.$element     = $(element)
+        this.$element  = $(element)
         this.$obj      = this.$element.find(options.obj)
         this.$objExt   = this.$element.find(options.objExt)
         // 如果正常的切换对象不存在,将扩展对象作为正常的对象,扩展对象清空
@@ -22,12 +22,6 @@
         // 运动方向
         options.dire = options.effect.indexOf('left') == 0 && 'left' || 'top';
         this.effect = options.effect.replace(options.dire, '')
-            // 分页
-        this.pages = !this.effect
-            // 不循环滚动
-            && Math.ceil((this.len - options.visible) / options.steps) + 1
-            // 循环滚动 marqueue loop
-            || Math.ceil(this.len / options.steps);
         
     }
 
@@ -55,7 +49,8 @@
         easing: 'swing',
         //外层大小
         // wrapsize : 0 ,
-
+        // 懒加载
+        lazyload: 1,
         //可见数量
         visible: 1,
         //每次切换的数量
@@ -77,7 +72,14 @@
                     overflow: 'hidden'
                 },
                 $obj, $objP, $objPP, attr, $cells, t;
-            
+
+                // 分页
+            _self.pages = !_self.effect
+                // 不循环滚动
+                && Math.ceil((_self.len - o.visible) / o.steps) + 1
+                // 循环滚动 marqueue loop
+                || Math.ceil(_self.len / o.steps);
+
             _self.index = o.index;
             attr        = o.dire == 'top' && 'height' || 'width';
             $obj        = _self.$obj;
@@ -95,8 +97,9 @@
             // 每个单元的尺寸
             o.size = $obj[o.dire == 'top' ? 'outerHeight' : 'outerWidth'](true);
             // 加上作用域
-            o.trigger += '.duang';
+            o.trigger = o.trigger.replace('.duang', '') + '.duang';
 
+            // console.log(o);
             switch(_self.effect){
                 case 'fade' :
                     $obj.css({
@@ -127,14 +130,14 @@
                             overflow: 'hidden'
                         };
 
-                    pCss[o.dire] = -o.size * o.index;
+                    pCss[o.dire] = - o.size * o.index;
                     pCss[attr] = 9999;
 
                     if (_self.effect) {
                         // 循环时处理
                         _self.$obj = $objP
                                     .append($obj.slice(0, o.visible).clone())
-                                    .prepend($obj.slice($obj.length - o.visible).clone())
+                                    .prepend($obj.slice(_self.len - o.visible).clone())
                                     .children();
                         // 定位到初始值
                         pCss[o.dire] = -(o.visible + o.index * o.steps) * o.size;
@@ -150,32 +153,19 @@
                     var $obj1 = $obj.eq(0);
                     // 计算多余的边距,让滚动外框两边对齐
                     var marginMore = parseInt($obj1.css('margin-' + o.dire)) - parseInt($obj1.css('margin-' + (o.dire == 'left' ? 'right' : 'bottom')));
+
                     ppCss[attr] = o.size * o.visible + marginMore;
-                    
                     $objPP.css(ppCss);
             }
 
-       /*     _self.setup();
-        },
-        setup: function() {
-            var _self = this,
-                o = _self.o,
-                $obj, $objP, $objPP, attr, $cells, t;
-
-            // 如果$cells存在,说明已经setup
-            if (_self.$cells) return;
-
-            $obj        = _self.$obj;
-            $objP       = $obj.parent();
-            $objPP      = $objP.parent();
-            */
             // 分页
             if (o.cell && _self.effect != 'Marqueue') {
-
-                $cells = _self.$element.find(o.cell).children();
+                var $cell = _self.$element.find(o.cell);
+                $cells = $cell.children();
                 
                 if ($cells.length) {
                     $cells = $cells.slice(0, _self.pages);
+                    $objP.data('cells', $cells.length);
                 } else {
                     var __html = [];
                     for (var i = 0; i < _self.pages; i++) {
@@ -246,16 +236,43 @@
             if (_self.$objExt.length > o.index) {
                 _self.$objExt.css('display','none').eq(o.index).show();
             }
+            // lazyload
+            !!o.lazyload && _self.lazyload($obj.slice(_self.index, o.visible));
+        },
+        lazyload: function($items) {
+            $items.each(function(i, el) {
+                $(this).find('img:not(".loaded")').attr('src', function() {
+                    return $(this).addClass('loaded').data('src');
+                })
+            });
         },
         destroy: function() {
             var _self = this,
-                o = this.o;
+                o = _self.o,
+                $obj = _self.$obj,
+                $objP = $obj.parent(),
+                items;
 
             _self.stop();
-            _self.$element.removeData('jqDuang');
             _self.$element.find(o.prevbtn + ',' + o.nextbtn).off('click mouseover')
-            _self.$cells.off(o.trigger);
-            delete _self.$cells;
+            $objP.parent().andSelf().add($obj).removeAttr('style')
+
+            if (_self.effect) {
+                $objP.empty().html(_self.$obj = $obj.slice(o.visible, -o.visible))
+            }
+
+            if ({'fold': 1, 'fade': 1}[_self.effect]) {
+                $obj.hide().eq(o.index).show();    
+            }
+
+
+            if (o.cell && _self.effect != 'Marqueue') {
+                !$objP.data('cells') && _self.$element.find(o.cell).empty();
+                delete _self.$cells;
+            }
+
+            _self.$element.trigger('destroy.duang');
+
         },
         start: function() {
             clearInterval(this.t1);
@@ -282,13 +299,18 @@
 
             if (_self.index == next && _self.effect != 'Marqueue') return;
 
+
             _self.$element.trigger('before.duang');
             switch(_self.effect){
                 case 'fade' :
+                    // lazyload
+                    !!o.lazyload && _self.lazyload($obj.eq(next));
                     $obj.eq(_self.index).hide()
                     $obj.eq(next).animate({opacity: 'show'}, o.speed, o.easing);
                     break;
                 case 'fold' :
+                    // lazyload
+                    !!o.lazyload && _self.lazyload($obj.eq(next));
                     $obj.stop(true, true).eq(_self.index)
                         .animate({
                             opacity: 'hide'
@@ -325,7 +347,8 @@
                 default :
                     var mm = 0, 
                         _mod = _self.len % o.steps,
-                        offset;
+                        offset,
+                        sn;
 
                     if (_self.effect == 'Loop') {
                         /*if ($objP.is(':animated')) {
@@ -346,8 +369,11 @@
                     } else if (loopNext == _self.pages - 1 || loopNext == - 1) {
                         mm = _self.len - next * o.steps - o.visible
                     }
-
-                    pCss[o.dire] = -size * (_self.effect == 'Loop' ? offset : next * o.steps + mm);
+                    sn = _self.effect == 'Loop' ? offset : next * o.steps + mm;
+                    // lazyload
+                    // console.log($obj.slice(sn, sn + o.steps));
+                    !!o.lazyload && _self.lazyload($obj.slice(sn, sn + o.steps));
+                    pCss[o.dire] = -size * sn;
 
                     $objP.stop(true, false).animate(pCss, o.speed, o.easing);
                     pCss = null;
@@ -386,8 +412,7 @@
         return option == 'index' ? this.data('jqDuang').index : this.each(function () {
             var $this   = $(this),
                 data    = $this.data('jqDuang'),
-                options = $.extend({}, Duang.DEFAULTS, $this.data(), typeof option == 'object' && option),
-                p;
+                options = $.extend({}, Duang.DEFAULTS, $this.data(), typeof option == 'object' && option);
 
             if (!data) {
                 if (option == 'destroy') {

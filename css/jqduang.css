@@ -1,7 +1,7 @@
 /*!
- * @name jqduang.scss
- * @author ahuing
- * @date 2016-04-24 15:01:24
+ * @name jqduang
+ * @author author
+ * @date 2016-05-09 02:10:55
  */
 #slide {
     position: relative;
@@ -29,9 +29,7 @@
 
     cursor: pointer;
 
-    -webkit-border-radius: 50%;
-       -moz-border-radius: 50%;
-            border-radius: 50%;
+    border-radius: 50%;
     background: #fff;
 }
 #slide .thumb i.act {
@@ -92,17 +90,13 @@
     filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#77000000 ', endColorstr='#77000000 ');
 }
 #slide .prev {
-    -webkit-border-radius: 0 30px 30px 0;
-       -moz-border-radius: 0 30px 30px 0;
-            border-radius: 0 30px 30px 0;
+    border-radius: 0 30px 30px 0;
 }
 #slide .next {
     right: 0;
     left: auto; 
 
-    -webkit-border-radius: 30px 0 0 30px;
-       -moz-border-radius: 30px 0 0 30px;
-            border-radius: 30px 0 0 30px;
+    border-radius: 30px 0 0 30px;
 }
 #slide .prev:hover,
 #slide .next:hover {
@@ -128,7 +122,9 @@
     width: 150px;
     margin: 10px;
 
-    text-align: center;
+    text-align: center; 
+
+    border-radius: 3px;
 }
 #scroll .imgcontrol {
     line-height: 24px;
@@ -161,9 +157,7 @@
 
     cursor: pointer;
 
-    -webkit-border-radius: 50%;
-       -moz-border-radius: 50%;
-            border-radius: 50%;
+    border-radius: 50%;
     background: #000;
 }
 #scroll .thumb i.act {
@@ -190,9 +184,7 @@
     text-decoration: none;
 
     color: #fff;
-    -webkit-border-radius: 50%;
-       -moz-border-radius: 50%;
-            border-radius: 50%;
+    border-radius: 50%;
     background: #000;
 }
 #scroll .prev:hover,
@@ -206,8 +198,7 @@
 
 :root .prev,
 :root .next {
-    -webkit-filter: none\9;
-            filter: none\9;
+    filter: none\9;
 }
 
-/*# sourceMappingURL=E:\baidu\web\javascript\jquery_plugIn\jqduang\src\css\jqduang.css.map */
+/*# sourceMappingURL=/src/css/jqduang.css.map */

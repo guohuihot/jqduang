@@ -9,21 +9,21 @@ $(window).on('load', function(event) {
     var config = {
         obj: 'li',
         cell: '.thumb',
-        autoplay: 1,
+        autoplay: 0,
         prevbtn: '.prev',
         nextbtn: '.next',
         visible: 3,
         steps: 3,
         // delay: 0,
         speed: 500,
-        btnLoop: 0,
+        // btnLoop: 0,
         effect: 'leftLoop'
     };
 
     var $duang = $('#scroll').jqDuang(config);
     var jqDuang = $duang.data('jqDuang');
     var o = jqDuang.o;
-    console.log(jqDuang);
+    // console.log(jqDuang);
 
     QUnit.test('插件安装', function () {
         QUnit.notStrictEqual($.fn.jqDuang, undefined, 'passed!')
@@ -47,9 +47,13 @@ $(window).on('load', function(event) {
     $('#destroy').click(function(event) {
         /* Act on the event */
         $duang.jqDuang('destroy');
+        o.visible = 2;
+        o.steps = 2;
+
     });
     $('#setup').click(function(event) {
         /* Act on the event */
         $duang.jqDuang('init');
+        return false;
     });
 });
