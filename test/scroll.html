@@ -12,6 +12,16 @@
     <link rel="stylesheet" href="./qunit-1.22.0.css">
     <script type="text/javascript" src="./qunit-1.22.0.js"></script>
     <script type="text/javascript" src="./scroll.js"></script>
+    <style type="text/css">
+        #scroll {
+            max-width: none !important;
+            float: none !important;
+            clear: both;
+        }    
+        #scroll li {
+            padding: 10px;
+        }
+    </style>
 
 </head>
 <body>
@@ -20,7 +30,10 @@
         <div id="qunit"></div>
         <div id="qunit-fixture"></div>
     </div>
-    <div id="scroll" class="jqDuang fr">
+    
+</div>
+
+<div id="scroll" class="jqDuang fr">
         <div class="imglist">
             <ul>
                 <li><img width="150" height="100" data-src="../images/1.jpg"/><h3>图片1的标题</h3></li>
@@ -49,8 +62,5 @@
         <button id="destroy">卸载</button>
         <button id="setup">装载</button>
     </div>
-</div>
-
-
 </body>
 </html>

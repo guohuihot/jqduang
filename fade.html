@@ -23,25 +23,21 @@
     <li><a href="/aboutus/" title="关于我们"><span>关于jqDuang</span></a></li>
   </ul>
 </nav>
-<div class="container">
-	<div class="effect-wrap-inner">
-		<h2><a href="http://www.jqduang.com/jqduang/" target="_blank"><span class="fr">查看更多效果</span> 焦点图/幻灯片/图片切换</a></h2>
-		<div id="slide" data-duang="1" class="jqDuang" data-li="li" data-effect="left" data-cell=".thumb" data-prevbtn=".prev" data-nextbtn=".next" data-visible="2" data-autoplay="0" data-steps="2">
-			<div class="imglist">
-				<ul>
-					<li data-title="图片一的标题" data-url="http://www.jqduang.com/jqduang/"><img width="560" height="300" data-src="images/1.jpg"/></li>
-					<li data-title="图片二的标题" data-url="http://www.jqduang.com/jqduang/"><img width="560" height="300" data-src="images/2.jpg"/></li>
-					<li data-title="图片三的标题" data-url="http://www.jqduang.com/jqduang/"><img width="560" height="300" data-src="images/3.jpg"/></li>
-					<li data-title="图片四的标题" data-url="http://www.jqduang.com/jqduang/"><img width="560" height="300" data-src="images/4.jpg"/></li>
-				</ul>
-			</div>
-			<span class="prev btn"><</span>
-			<span class="next btn">></span>
-			<div class="thumb"></div>
-			<div class="pagewrap"></div>
-		</div>
+<div id="slide" data-duang="1" class="jqDuang" data-fluid="1" data-effect="leftLoop" data-cell=".thumb" data-prevbtn=".prev" data-nextbtn=".next" data-visible="1" data-autoplay="0" data-steps="1">
+	<div class="imglist">
+		<ul>
+			<li data-title="图片一的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/1.jpg"/></li>
+			<li data-title="图片二的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/2.jpg"/></li>
+			<li data-title="图片三的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/3.jpg"/></li>
+			<li data-title="图片四的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/4.jpg"/></li>
+		</ul>
 	</div>
+	<span class="prev btn"><</span>
+	<span class="next btn">></span>
+	<div class="thumb"></div>
+	<div class="pagewrap"></div>
 </div>
+<input type="submit" id="btn" class="btn" value=""/>
 <script src="./js/jquery.js" type="text/javascript"></script>  
 <!-- <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>  -->
 <footer class="footer tac">        
@@ -65,15 +61,12 @@
 
 <script src="js/jqduang.js?20150621" type="text/javascript"></script> 
 <script type="text/javascript">
-// console.log(location.href);
-//      var o = {}
-// 	 , aParam = location.href.split('?')[1].split('&')
-// 	 , aSet = ['wrapsize', 'full', 'visible', 'steps', 'overstop', 'showtit', 'delaytime', 'playtime', 'autoplay', 'index', 'speed'];
-// 	 $.each(aParam, function(a, b) {
-// 	 	b = b.split('=');
-// 	 	(o[b[0]] = ($.inArray(b[0], aSet) >= 0 && decodeURIComponent(b[1])*1 || decodeURIComponent(b[1])));
-// 	 })
-// 	 $('.jqDuang').data(o)
+$('#btn').click(function() {
+	$('.jqDuang').jqDuang('next');
+});
+$('#slide').on('before.duang', function() {
+	// console.log($(this).data('jqDuang'));
+})
 </script>
 
 </body>

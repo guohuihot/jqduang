@@ -1,7 +1,7 @@
 /*!
  * @name jqduang
  * @author author
- * @date 2016-05-09 02:10:55
+ * @date 2016-06-06 01:24:45
  */
 #slide {
     position: relative;
@@ -30,7 +30,7 @@
     cursor: pointer;
 
     border-radius: 50%;
-    background: #fff;
+    background: #ddd;
 }
 #slide .thumb i.act {
     background: #c00;
@@ -201,4 +201,4 @@
     filter: none\9;
 }
 
-/*# sourceMappingURL=/src/css/jqduang.css.map */
+/*# sourceMappingURL=..\src\css\jqduang.css.map */

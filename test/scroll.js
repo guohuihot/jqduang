@@ -4,7 +4,6 @@
  * @date <%= date %>
  */
 $(window).on('load', function(event) {
-    event.preventDefault();
     /* Act on the event */
     var config = {
         obj: 'li',
@@ -12,16 +11,19 @@ $(window).on('load', function(event) {
         autoplay: 0,
         prevbtn: '.prev',
         nextbtn: '.next',
-        visible: 3,
-        steps: 3,
+        visible: 1,
+        steps: 1,
         // delay: 0,
         speed: 500,
-        // btnLoop: 0,
+        showtit: 1,
+        btnLoop: 1,
         effect: 'leftLoop'
     };
 
     var $duang = $('#scroll').jqDuang(config);
     var jqDuang = $duang.data('jqDuang');
+    console.log(jqDuang);
+    return false;
     var o = jqDuang.o;
     // console.log(jqDuang);
 

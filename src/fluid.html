@@ -1,0 +1,33 @@
+<html>
+<head>
+	@@include('./_head.html', {"title": "demo1"})
+</head>
+<body>
+
+@@include('./_header.html')
+<div id="slide" class="jqDuang" data-effect="fade" data-autoplay="0" data-fluid="1" data-cell=".thumb"  data-prevbtn=".prev" data-nextbtn=".next" >
+	<div class="imglist">
+		<ul>
+			<li data-title="图片一的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/1.jpg"/></li>
+			<li data-title="图片二的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/2.jpg"/></li>
+			<li data-title="图片三的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/3.jpg"/></li>
+			<li data-title="图片四的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/4.jpg"/></li>
+			<li data-title="图片五的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/5.jpg"/></li>
+			<li data-title="图片六的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="300" src="images/6.jpg"/></li>
+		</ul>
+	</div>
+	<span class="prev btn"><</span>
+	<span class="next btn">></span>
+	<div class="thumb"></div>
+	<div class="pagewrap"></div>
+</div>
+<input type="submit" id="btn" class="btn" value=""/>
+@@include('./_footer.html')
+<script type="text/javascript">
+$('#btn').click(function() {
+	$('.jqDuang').jqDuang('next');
+});
+</script>
+
+</body>
+</html>
