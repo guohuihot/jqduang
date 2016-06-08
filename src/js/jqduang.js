@@ -393,6 +393,21 @@
             clearInterval(this.t1);
         },
         /**
+         * @method getPage 
+         * @param {number|string} i 页码
+         * @description 获取第n页的对象合集
+         * @return {array} jq对象
+         * @示例 js
+         * ```js
+         *     $('[data-duang=1]').jqDuang('getPage');
+         * ```
+         */
+        getPage: function(i) {
+            var next = ((i + 1) % this.pages) * this.o.steps;
+            var nextNext = ((next + 1) % this.pages) * this.o.steps || this.$obj.length;
+            return this.$obj.slice(next, nextNext)
+        },
+        /**
          * @method next 
          * @description 播放下一个
          * @示例 js
@@ -563,7 +578,15 @@
     }
 
     function Plugin(option, arg) {
-        return option == 'index' ? this.data('jqDuang').index : this.each(function() {
+        if (option == 'index') {
+            return this.data('jqDuang').index;
+        }
+
+        if ({getPage: 1}[option]) {
+            return this.data('jqDuang')[option](arg);
+        }
+
+        return this.each(function() {
             var $this = $(this),
                 data = $this.data('jqDuang'),
                 options;
