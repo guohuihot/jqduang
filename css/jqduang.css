@@ -1,9 +1,21 @@
 /*!
  * @name jqduang
- * @author author
- * @date 2016-06-06 01:24:45
+ * @author ahuing
+ * @date 2016-06-11 02:03:36
  */
-#slide {
+ul,
+li {
+    margin: 0;
+    padding: 0;
+
+    letter-spacing: none;
+}
+
+img[data-src] {
+    background: #fff url(../images/loading.gif) center no-repeat;
+}
+
+.slide {
     position: relative;
 
     overflow: hidden;
@@ -11,31 +23,36 @@
     width: 560px;
     height: 300px;
 }
-#slide .thumb {
+.slide .thumb {
     position: absolute;
     z-index: 1;
     right: 15px;
-    bottom: 15px;
+    bottom: 55px;
+
+    border-radius: 20px;
+    background: rgba(0, 0, 0, .5);
+
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#77000000 ', endColorstr='#77000000 ');
 }
-#slide .thumb i {
+.slide .thumb i {
     line-height: 100;
 
     float: left;
     overflow: hidden;
 
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
+    width: 14px;
+    height: 14px;
+    margin: 3px;
 
     cursor: pointer;
 
     border-radius: 50%;
     background: #ddd;
 }
-#slide .thumb i.act {
+.slide .thumb i.act {
     background: #c00;
 }
-#slide .tit-duang {
+.slide .tit-jd {
     font-size: 14px;
     line-height: 40px;
 
@@ -53,10 +70,10 @@
 
     filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#77000000 ', endColorstr='#77000000 ');
 }
-#slide .tit-duang:hover {
+.slide .tit-jd:hover {
     text-decoration: none;
 }
-#slide .pagewrap {
+.slide .pagewrap {
     font-size: 18px;
 
     position: absolute;
@@ -65,8 +82,8 @@
 
     color: #fff;
 }
-#slide .prev,
-#slide .next {
+.slide .prev,
+.slide .next {
     font: bold 34px / 60px simsun;
 
     position: absolute;
@@ -89,87 +106,95 @@
 
     filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#77000000 ', endColorstr='#77000000 ');
 }
-#slide .prev {
+.slide .prev {
     border-radius: 0 30px 30px 0;
 }
-#slide .next {
+.slide .next {
     right: 0;
     left: auto; 
 
     border-radius: 30px 0 0 30px;
 }
-#slide .prev:hover,
-#slide .next:hover {
+.slide .prev:hover,
+.slide .next:hover {
     text-decoration: none;
 
     color: #c00;
     background: #000;
 }
 
-#scroll {
+.scroll {
     position: relative;
 
-    min-width: 300px;
+    float: left;
+    clear: both;
+}
+.scroll .imglist,
+.scroll .tempWrap {
+    float: left;
+
+    margin: 0 auto;
 
     background: #eee;
 }
-#scroll .imglist {
-    margin: 0 auto;
+.scroll .tempWrap {
+    background: #eee;
 }
-#scroll li {
+.scroll li {
     float: left;
 
-    width: 150px;
-    margin: 10px;
+    padding: 10px;
 
     text-align: center; 
 
     border-radius: 3px;
 }
-#scroll .imgcontrol {
+.scroll .imgcontrol {
     line-height: 24px;
+
+    clear: both;
 
     text-align: center;
 }
-#scroll .pagewrap {
+.scroll .pagewrap {
     font-size: 16px;
 
     display: inline-block;
 
     vertical-align: top;
 }
-#scroll .thumb {
+.scroll .thumb {
     display: inline-block;
 
+    width: 300px;
     height: 24px;
 
-    vertical-align: middle;
+    vertical-align: top;
 }
-#scroll .thumb i {
+.scroll .thumb i {
     line-height: 100;
 
     display: inline-block;
     overflow: hidden;
 
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
     margin: 0 5px;
 
     cursor: pointer;
+    vertical-align: top;
 
     border-radius: 50%;
     background: #000;
 }
-#scroll .thumb i.act {
+.scroll .thumb i.act {
     background: #c00;
 }
-#scroll .btns {
-    margin: -30px 30px;
-
+.scroll .btns {
     text-align: right;
 }
-#scroll .prev,
-#scroll .next {
+.scroll .prev,
+.scroll .next {
     font: bold 18px/24px simsun;
 
     z-index: 10;
@@ -187,18 +212,68 @@
     border-radius: 50%;
     background: #000;
 }
-#scroll .prev:hover,
-#scroll .next:hover {
+.scroll .prev:hover,
+.scroll .next:hover {
     text-decoration: none;
 }
-#scroll .disabled,
-#scroll .disabled:hover {
+.scroll .disabled,
+.scroll .disabled:hover {
+    background: #ddd;
+}
+.scroll h5 {
+    margin: 0;
+}
+
+.marqueue {
+    float: left; 
+    clear: both;
+}
+.marqueue li {
+    padding: 10px;
+}
+.marqueue .prev,
+.marqueue .next {
+    font: bold 18px/24px simsun;
+
+    z-index: 10;
+
+    display: inline-block;
+    overflow: hidden;
+
+    width: 24px;
+
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+
+    color: #fff;
+    border-radius: 50%;
+    background: #000;
+}
+.marqueue .prev:hover,
+.marqueue .next:hover {
+    text-decoration: none;
+}
+.marqueue .disabled,
+.marqueue .disabled:hover {
     background: #ddd;
 }
 
 :root .prev,
 :root .next {
     filter: none\9;
+}
+
+.effect-config {
+    float: right;
+
+    width: 50%;
+}
+
+form li {
+    float: left;
+
+    width: 50%;
 }
 
 /*# sourceMappingURL=..\src\css\jqduang.css.map */

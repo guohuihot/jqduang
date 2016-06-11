@@ -3,9 +3,18 @@
  * @author <%= author %>
  * @date <%= date %>
  */
+
+ ul, li {
+    margin: 0;
+    padding: 0;
+    letter-spacing: none;
+ }
 $btn-w: 30px;
 $btn-h: 60px;
-#slide {
+img[data-src] {
+    background: #fff url(../images/loading.gif) center no-repeat;
+}
+.slide {
     position: relative;
 
     overflow: hidden;
@@ -16,27 +25,31 @@ $btn-h: 60px;
         position: absolute;
         z-index: 1;
         right: 15px;
-        bottom: 15px;
+        bottom: 55px;
+        border-radius: 20px;
+        background: rgba(0,0,0,.5);
+        filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#77000000 ', endColorstr='#77000000 ');
+
+        i {
+            line-height: 100;
+
+            float: left;
+            overflow: hidden;
+
+            width: 14px;
+            height: 14px;
+            margin: 3px;
+
+            cursor: pointer;
+
+            border-radius: 50%;
+            background: #ddd;
+            &.act {
+                background: #c00;
+            }
+        }
     }
-    .thumb i {
-        line-height: 100;
-
-        float: left;
-        overflow: hidden;
-
-        width: 20px;
-        height: 20px;
-        margin-left: 10px;
-
-        cursor: pointer;
-
-        border-radius: 50%;
-        background: #ddd;
-    }
-    .thumb i.act {
-        background: #c00;
-    }
-    .tit-duang {
+    .tit-jd {
         font-size: 14px;
         line-height: 40px;
 
@@ -53,7 +66,7 @@ $btn-h: 60px;
         background: rgba(0,0,0,.5);
         filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#77000000 ', endColorstr='#77000000 ');
     }
-    .tit-duang:hover {
+    .tit-jd:hover {
         text-decoration: none;
     }
     .pagewrap {
@@ -104,24 +117,30 @@ $btn-h: 60px;
 	    background: #000;
 	}
 }
-#scroll {
+.scroll {
     position: relative;
-	min-width: 300px;
-    background: #eee;
-    .imglist {
+    float: left;
+    clear: both;
+    .imglist, .tempWrap {
         margin: 0 auto;
+        float: left;
+        // overflow: visible !important;
+        background: #eee;
+    }
+
+    .tempWrap {
+        background: #eee;
     }
     li {
         float: left;
 
-        width: 150px;
-        margin: 10px;
+        padding: 10px;
         border-radius: 3px;
         text-align: center;
     }
     .imgcontrol {
         line-height: 24px;
-
+        clear: both;
         text-align: center;
     }
     .pagewrap {
@@ -133,10 +152,11 @@ $btn-h: 60px;
     }
     .thumb {
         display: inline-block;
+        width: 300px;
 
         height: 24px;
 
-        vertical-align: middle;
+        vertical-align: top;
     }
     .thumb i {
         line-height: 100;
@@ -144,9 +164,10 @@ $btn-h: 60px;
         display: inline-block;
         overflow: hidden;
 
-        width: 10px;
-        height: 10px;
+        width: 20px;
+        height: 20px;
         margin: 0 5px;
+        vertical-align: top;
 
         cursor: pointer;
 
@@ -157,7 +178,6 @@ $btn-h: 60px;
         background: #c00;
     }
     .btns {
-    	margin: -30px 30px;
     	text-align: right;
     }
     .prev, .next {
@@ -186,7 +206,54 @@ $btn-h: 60px;
     .disabled:hover {
         background: #ddd;
     }
+    h5 {
+        margin: 0;
+    }
 }
 
+.marqueue {
+    clear: both;
+    float: left;
+    li {
+        padding: 10px;
+    }
 
+    .prev, .next {
+        font: bold 18px/24px simsun;
+
+        z-index: 10;
+
+        display: inline-block;
+        overflow: hidden;
+
+        width: 24px;
+
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+
+        color: #fff;
+        border-radius: 50%;
+        background: #000;
+    }
+    .prev:hover,
+    .next:hover {
+        text-decoration: none;
+    }
+    .disabled,
+    .disabled:hover {
+        background: #ddd;
+    }
+}
 :root .prev,:root .next{filter:none\9}
+
+.effect-config {
+    float: right;
+    width: 50%;
+}
+form {
+    li {
+        float: left;
+        width: 50%;
+    }
+}

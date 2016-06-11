@@ -1,103 +1,26 @@
 <html>
 <head>
-<style type="text/css">
-    * {margin: 0;padding: 0;}
-    .scroll {
-        margin: 15px auto;
-    }
-    .scroll .imglist {
-        margin: 0 auto;
-        background: #ddd;
-        padding: 5px 0;
-        /*overflow: visible !important;*/
-    }
-    .scroll li {
-        margin: 0 5px;
-    }
-    .scroll h5 {
-        line-height: 21px;
-        height: 21px;
-        overflow: hidden;
-        text-align: center;
-        font-weight: normal;
-        padding-top: 3px;
-    }
-    .control {
-        padding: 5px;
-    }
-    .control span {
-        display: inline-block;
-        vertical-align: top;
-        margin: 0 20px;
-    }
-    .control .thumb {
-        width: 250px;
-    }
-    .control .thumb i {
-        display: inline-block;
-        vertical-align: top;
-        font-style: normal;
-        font-size: 12px;
-        background-color: #ccc;
-        border-radius: 50%;
-        width: 20px;
-        text-align: center;
-        line-height: 20px;
-        margin-left: 5px;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    .control .thumb i.act {
-        background-color: #f00;
-    }
-
-    .control span {
-        display: inline-block;
-        margin: 0 20px;
-    }
-    .control .btn {
-        margin: 0 5px;
-        background-color: #666;
-        width: 30px;
-        height: 20px;
-        line-height: 20px;
-        text-align: center;
-        cursor: pointer;
-        color: #fff;
-    }
-</style>
+    @@include('./_head.html')
 </head>
 <body>
-
+@@include('./_header.html')
+<div class="blank20"></div>
 <div class="container">
-    <h3>每次1个</h3>
-    <div class="scroll" data-duang="1" data-effect="fold" data-fluid="1" data-lazyload="1" data-cell=".thumb" data-prevbtn=".prev" data-nextbtn=".next" data-pagewrap=".pagewrap" data-index="1" data-visible="1" data-autoplay="0" data-steps="1">
-        <div class="imglist">
-            <ul>
-                <li data-title="图片1的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="100" data-src="images/1.jpg"/><h5>图片1的标题</h5></li>
-                <li data-title="图片2的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="100" data-src="images/2.jpg"/><h5>图片2的标题</h5></li>
-                <li data-title="图片3的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="100" data-src="images/3.jpg"/><h5>图片3的标题</h5></li>
-                <li data-title="图片4的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="100" data-src="images/4.jpg"/><h5>图片4的标题</h5></li>
-                <li data-title="图片5的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="100" data-src="images/5.jpg"/><h5>图片5的标题</h5></li>
-                <li data-title="图片6的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="100" data-src="images/6.jpg"/><h5>图片6的标题</h5></li>
-                <li data-title="图片7的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="100" data-src="images/7.jpg"/><h5>图片7的标题</h5></li>
-                <li data-title="图片8的标题" data-url="http://www.jqduang.com/jqduang/"><img width="100%" height="100" data-src="images/8.jpg"/><h5>图片8的标题</h5></li>
-            </ul>
-        </div>
-        <div class="control">
-            <span class="pagewrap"></span>
-            <span class="thumb"></span>
-            <span class="prev btn"><</span>
-            <span class="next btn">></span>
-        </div>
-    </div>
-    
-    
+	<div class="effect-wrap-inner">
+		@@include('./tpl_slide.html')
+	</div>
 </div>
-
-<script type="text/javascript" src="./js/jquery.js"></script>
-<script type="text/javascript" src="./js/jqduang.js"></script>
-
+@@include('./_footer.html')
+<script type="text/javascript">
+$('.slide').jqDuang({
+	cell: ".thumb",
+	effect: "leftLoop",
+	nextbtn: ".next",
+	lazyload: "src",
+	pagewrap: ".pagewrap",
+	prevbtn: ".prev",
+	showtit: 1
+})
+</script>
 </body>
 </html>

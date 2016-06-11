@@ -1,25 +1,29 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>jqduang_jqduang.comq</title>
+    <title>jqduang_jqduang.com</title>
     <meta name="keywords" content="jqduang,前端特效,网页特效,焦点图,幻灯片,滑动门,滚动图片,无缝滚动,图片切换"/>
     <meta name="description" content="Mr.jqDuang,前端特效,网页特效,焦点图,幻灯片,滑动门,滚动图片,无缝滚动,图片切换,用少的代码做多的效果,复杂的问题交给我来做,您只要轻轻一行代码就行！"/>
-    <link rel="stylesheet" href="./css/index.css">
+    
+<link rel="stylesheet" href="./css/global.css">
+<link rel="stylesheet" href="./css/index.css">
+<link rel="stylesheet" href="./css/jqduang.css">
 </head>
 <body class="bg duang">
-    <nav class="nav">
-  <ul class="wrap cf">
-    <li><a href="../" title="jqDuang"><span>首页</span></a></li>
-    <li><a href="../jqduang/" title="网页特效"><span>jqDuang</span></a></li>
-    <li><a href="../jqvalidate/" title="表单验证"><span>jqValidate</span></a></li>
-    <li><a href="../jqmodal/" title="弹出层"><span>jqModal</span></a></li>
-    <li><a href="../jqgallery/" title="图片相册"><span>jqGallery</span></a></li>
-    <li><a href="../jqfixed/" title="jqfixed"><span>jqFixed</span></a></li>
-    <li><a href="../jqscrollspy/" title="滚动监听"><span>jqScrollspy</span></a></li>
-    <li><a href="../jqsimulation/" title="模拟select"><span>jqSimulation</span></a></li>
-    <li><a href="../aboutus/" title="关于我们"><span>关于jqDuang</span></a></li>
-  </ul>
-</nav>
+        <nav class="nav">
+      <ul class="wrap cf">
+        <li><a href="../" title="jqDuang"><span>首页</span></a></li>
+        <li><a href="../jqduang/" title="网页特效"><span>jqDuang</span></a></li>
+        <li><a href="../jqvalidate/" title="表单验证"><span>jqValidate</span></a></li>
+        <li><a href="../jqmodal/" title="弹出层"><span>jqModal</span></a></li>
+        <li><a href="../jqgallery/" title="图片相册"><span>jqGallery</span></a></li>
+        <li><a href="../jqfixed/" title="jqfixed"><span>jqFixed</span></a></li>
+        <li><a href="../jqscrollspy/" title="滚动监听"><span>jqScrollspy</span></a></li>
+        <li><a href="../jqsimulation/" title="模拟select"><span>jqSimulation</span></a></li>
+        <li><a href="../aboutus/" title="关于我们"><span>关于jqDuang</span></a></li>
+      </ul>
+    </nav>
+
     <div class="wrap">
         <nav class="sub-nav">
             <ul>
@@ -33,13 +37,13 @@
         </nav>
         <section id="demo" class="page active">
             <article class="area">
-                <div class="effect-wrap w50p">
-                    <iframe width="560" height="336" name="demo1" frameborder="0" scrolling="no"></iframe>
+                <div class="effect-wrap w50p slide-wrap">
+                    
                 </div>
                 <div class="config-wrap w50p">
                     <h2>焦点图/幻灯片/图片切换 参数</h2>
                     <!-- 表单 -->
-                    <form action="demo1.html" method="get" target="demo1">
+                    <form method="get" data-tag="slide">
                         <input type="hidden" name="cell" value=".thumb"/>
                         <input type="hidden" name="obj" value="li"/>
                         <input type="hidden" name="prevbtn" value=".prev"/>
@@ -119,8 +123,8 @@
                                 </select>
                             </li>
                             <li>
-                                <label>前后按钮循环(btnLoop)</label>：
-                                <select name="btnLoop">
+                                <label>前后按钮循环(btnloop)</label>：
+                                <select name="btnloop">
                                     <option value="1">1</option>
                                     <option value="0">0</option>
                                 </select>
@@ -141,13 +145,12 @@
                 
             </article>
             <article class="area">
-                <div class="effect-wrap w50p">
-                    <iframe width="560" height="214" name="demo2" frameborder="0" scrolling="no"></iframe>
+                <div class="effect-wrap w50p scroll-wrap">
                 </div>
                 <div class="config-wrap w50p">
                     <h2>多图滚动 参数</h2>
                     <!-- 表单 -->
-                    <form action="demo2.html" method="get" target="demo2">
+                    <form method="get" data-tag="scroll">
                         <input type="hidden" name="cell" value=".thumb"/>
                         <input type="hidden" name="obj" value="li"/>
                         <input type="hidden" name="prevbtn" value=".prev"/>
@@ -158,6 +161,8 @@
                                 <select name="effect">
                                     <option value="left">left</option>  
                                     <option value="leftLoop">leftLoop</option>  
+                                    <option value="top">top</option>  
+                                    <option value="topLoop">topLoop</option>  
                                 </select>
                             </li>
                             <li>
@@ -223,8 +228,8 @@
                                 </select>
                             </li>
                             <li>
-                                <label>前后按钮循环(btnLoop)</label>：
-                                <select name="btnLoop">
+                                <label>前后按钮循环(btnloop)</label>：
+                                <select name="btnloop">
                                     <option value="1">1</option>
                                     <option value="0">0</option>
                                 </select>
@@ -245,13 +250,13 @@
                 
             </article>
             <article class="area">
-                <div class="effect-wrap w50p">
-                    <iframe width="560" height="214" name="demo3" frameborder="0" scrolling="no"></iframe>
+                <div class="effect-wrap w50p marqueue-wrap">
+                    
                 </div>
                 <div class="config-wrap w50p">
                     <h2>无缝滚动 参数</h2>
                     <!-- 表单 -->
-                    <form action="demo3.html" method="get" target="demo3">
+                    <form data-tag="marqueue">
                         <input type="hidden" name="obj" value="li"/>
                         <input type="hidden" name="prevbtn" value=".prev"/>
                         <input type="hidden" name="nextbtn" value=".next"/>
@@ -260,6 +265,7 @@
                                 <label>切换效果(effect)</label>：
                                 <select name="effect">
                                     <option value="leftMarqueue">leftMarqueue</option>  
+                                    <option value="topMarqueue">topMarqueue</option>  
                                 </select>
                             </li>
                             <li>
@@ -274,8 +280,8 @@
                                 <label>速度(interval)</label>：
                                 <select name="interval">
                                     <option value="10">10ms</option>    
-                                    <option value="20">20ms</option>    
-                                    <option selected="selected" value="30">30ms</option>    
+                                    <option selected="selected" value="20">20ms</option>    
+                                    <option value="30">30ms</option>    
                                     <option value="40">40ms</option>    
                                     <option value="50">50ms</option>
                                 </select>
@@ -303,67 +309,12 @@
                 
             </article>
             <article class="area">
-                <div class="effect-wrap w50p">
-                    <iframe width="560" height="410" name="demo4" frameborder="0" scrolling="no"></iframe>
-                </div>
-                <div class="config-wrap w50p">
-                    <h2>微博效果 参数</h2>
-                    <!-- 表单 -->
-                    <form action="demo4.html" method="get" target="demo4">
-                        <input type="hidden" name="obj" value="li"/>
-                        <input type="hidden" name="prevbtn" value=".prev"/>
-                        <input type="hidden" name="nextbtn" value=".next"/>
-                        <ul>
-                            <li class="nowrap">
-                                <label>切换效果(effect)</label>：
-                                <select name="effect">
-                                    <option value="weibo">weibo</option>    
-                                </select>
-                            </li>
-                            <li>
-                                <label>显示个数(visible)</label>：
-                                <select name="visible"> 
-                                    <option value="3">3</option>    
-                                    <option value="4">4</option>    
-                                    <option selected="selected" value="5">5</option>    
-                                </select>
-                            </li>
-                            <li>
-                                <label>鼠标悬停(overstop)</label>：
-                                <select name="overstop">
-                                    <option value="1">是</option>
-                                    <option value="0">否</option>
-                                </select>
-                            </li>
-                            <li>
-                                <label>切换速度(speed)</label>：
-                                <select name="speed">
-                                    <option value="100">100ms</option>  
-                                    <option value="200">200ms</option>  
-                                    <option value="300">300ms</option>  
-                                    <option value="400">400ms</option>  
-                                    <option value="500">500ms</option>  
-                                    <option value="600">600ms</option>  
-                                    <option selected="selected" value="800">800ms</option>  
-                                    <option value="1000">1000ms</option>  
-                                </select>
-                            </li>
-                        </ul>
-                        <input type="submit" class="btn dn" value="提交"/>
-                    </form>
-                    
-                    <!-- /表单 -->
-                </div>
-                
-            </article>
-            <article class="area">
-                <div class="effect-wrap w50p">
-                    <iframe width="560" height="300" name="demo5" frameborder="0" scrolling="no"></iframe>
+                <div class="effect-wrap w50p tab-wrap">
                 </div>
                 <div class="config-wrap w50p">
                     <h2>滑动门/选项卡 参数</h2>
                     <!-- 表单 -->
-                    <form action="demo5.html" method="get" target="demo5">
+                    <form data-tag="tab">
                         <input type="hidden" name="obj" value="ul"/>
                         <input type="hidden" name="cell" value=".cell"/>
                         <input type="hidden" name="prevbtn" value=".prev"/>
@@ -409,6 +360,38 @@
                     <!-- /表单 -->
                 </div>
                 
+            </article>
+            <article class="area">
+                <h2>其它效果</h2>
+                <ul>
+                    <li>
+                        <a href="scroll.html">滚动</a>
+                    </li>
+                    <li>
+                        <a href="fluid.html">自动适应</a>
+                    </li>
+                    <li>
+                        <a href="slide.html">slide</a>
+                    </li>
+                    <li>
+                        <a href="weibo.html">微博效果</a>
+                    </li>
+                    <li>
+                        <a href="scroll.html">滚动</a>
+                    </li>
+                    <li>
+                        <a href="lazyload.html">懒加载</a>
+                    </li>
+                    <li>
+                        <a href="marqueue.html">无缝滚动</a>
+                    </li>
+                    <li>
+                        <a href="photos.html">腾讯图片</a>
+                    </li>
+                    <li>
+                        <a href="qqent.html">腾讯娱乐焦点图</a>
+                    </li>
+                </ul>
             </article>
         </section>
         <section id="howtouse" class="page">
@@ -681,12 +664,12 @@ $(expr).jqDuang({
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>btnLoop</td>
+                            <td>btnloop</td>
                             <td>1</td>
                             <td>1.0</td>
                             <td>按钮循环:<br>
                                 说明: 点击前/后一个时,到第一(最后)时,按钮会添加'disabled'样式,并且按钮不可用；
-                                使用: {btnLoop:1}
+                                使用: {btnloop:1}
                             </td>
                             <td>&nbsp;</td>
                         </tr>
@@ -842,43 +825,10 @@ $(expr).on('afterFun', function(el, index){
     </div>
 
 <script src="./js/jquery.js?201505203"></script>
-<script src="../js/jquery.mousewheel.min.js"></script> 
-<script src="../js/common.js?201505203"></script>
-<script src="../js/rainbow.min.js?201505203"></script>
-<article class="wrap">
-    <div class="area">
-        <script type="text/javascript">
-            var uyan_config = {
-                 'title':'jqduang'
-                , 'url':'http://www.jqduang.com/jqduang'
-                , 'du':'jqduang.com'
-                , 'su':'jqduang' 
-            };
-        </script>
+<script src="./js/jqduang.js?201505203"></script>
+<script src="./js/common.js?201505203"></script>
 
-        <!-- UY BEGIN -->
-        <div id="uyan_frame"></div>
-<!-- <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2026484"></script> -->
-        <!-- UY END -->
-    </div><!-- /留言 -->
-</article> 
-
-<div class="footer tac">        
-    jqDuang, jqValidate, jqModal, jqGallery, jqFixed, jqSimulation <br/>
-    Copyright ©2013 jqduang.com
-</div><!-- /footer -->
-<!-- <div class="dn">
-    <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?b2e33c0312c7235a7e13b0cf86eec840";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
-
-</div> -->
-
+<script src="js/jquery.js?20150621" type="text/javascript"></script> 
+<script src="js/jqduang.js?20150621" type="text/javascript"></script> 
 </body>
 </html>

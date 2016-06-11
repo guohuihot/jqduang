@@ -16,11 +16,11 @@
         this.o       = options
         this.$ele    = $(ele)
         this.$obj    = this.$ele.find(options.obj)
-        this.$objex = this.$ele.find(options.objex)
+        this.$objExt = this.$ele.find(options.objExt)
         // 如果正常的切换对象不存在,将扩展对象作为正常的对象,扩展对象清空
         if (!this.$obj.length) {
-            this.$obj = this.$objex
-            delete this.$objex;
+            this.$obj = this.$objExt
+            delete this.$objExt;
         }
         // 对象长度
         this.len = this.$obj.length
@@ -43,10 +43,10 @@
      * @param {string} prevbtn jq选择器 播放上一个
      * @param {string} nextbtn jq选择器 播放上一个
      * @param {boolean} btnloop 点击上一个下一个按钮时是否循环播放
-     * @param {number} delay=100 延迟时间,优化`click` or `mouseover`时延迟切换
+     * @param {number} delay=150 延迟时间,优化`click` or `mouseover`时延迟切换
      * @param {string} easing=swing 动画效果扩展 默认jQuery提供`linear` 和 `swing`  其它需要{@link http://gsgd.co.uk/sandbox/jquery/easing|easing}扩展支持
      * @param {boolean} fluid=0 启用流体,目前只支持`fade fold left leftLoop`当`o.visible=1` 时的设置
-     * @param {string} lazyload=null 启用懒加载, `lazyload=src`从图片的`data-src`读取图片的地址并替换给图片的`src`
+     * @param {string} lazyload=src 启用懒加载, 从图片的`data-src`读取图片的地址并替换给图片的`src`
      * @param {number} visible=1 可见数量
      * @param {number} steps=1 每次播放的数量
      * @param {boolean} overstop=1 鼠标悬停时是否停止播放
@@ -129,10 +129,10 @@
         interval : 3000,
         prevbtn  : null,
         nextbtn  : null,
-        delay    : 100,
+        delay    : 150,
         easing   : 'swing',
         fluid    : 0,
-        lazyload : null,
+        lazyload : 'src',
         visible  : 1,
         steps    : 1,
         overstop : 1,
@@ -218,6 +218,7 @@
                 attr       = dire == 'top' && 'height' || 'width', 
                 outerAttr  = 'outer' + _self.firstUper(attr), 
                 $cells;
+
             // 分页
             _self.pages = !_self.effect
                 // 不循环滚动
@@ -235,17 +236,16 @@
 
             $obj.css('float', dire == 'top' ? 'none' : 'left');
             // 每个单元的尺寸
+                // console.log(outerAttr);
             if (!!o.fluid && o.visible == 1 && {fade: 1, fold: 1, leftLoop: 1, left: 1}[o.effect]) {
-                var attr = 'width',
-                    space = _self.getSpace($obj.eq(0), attr);
-
+                // console.log('width');
+                var attr = 'width', space = _self.getSpace($obj.eq(0), attr);
                 _self.$ele.css(attr, 'auto');
                 _self.size = _self.$ele[outerAttr](true);
                 $obj.css(attr, _self.size - space);
 
                 $(win).on('resize.jd', function() {
                     var oSize = _self.size;
-
                     _self.size = _self.$ele[outerAttr](true);
                     $objP.stop(true, true).css(dire, function(i, v) {
                         // 处理改变后的差值, 循环时+1
@@ -269,7 +269,7 @@
                         top: 0
                     });
 
-                    ppCss['height'] = $obj.outerHeight(true);
+                    ppCss['height'] = $obj.height();
                     $objPP.css(ppCss);
                     break;
                 case 'weibo':
@@ -295,8 +295,7 @@
                         // 循环时处理
                         _self.$obj = $objP
                             .append($obj.slice(0, o.visible).clone())
-                            .prepend($obj.slice(_self.len - o.steps).clone())
-                            // .prepend($obj.slice(_self.len - o.visible).clone())
+                            .prepend($obj.slice(_self.len - o.visible).clone())
                             .children();
                         // marqueue
                         if (_self.effect == 'Marqueue') {
@@ -318,7 +317,6 @@
             if (o.cell && _self.effect != 'Marqueue') {
                 var $cell = _self.$ele.find(o.cell),
                     t;
-
                 $cells = $cell.children();
 
                 if ($cells.length) {
@@ -332,7 +330,7 @@
                     $cells = $(__html.join('')).appendTo(_self.$ele.find(o.cell));
                 }
 
-                _self.$cells = $cells.on(o.trigger, function() {
+                $cells.on(o.trigger, function() {
                         clearTimeout(t);
                         _self.loopNext = $cells.index(this);
                         t = setTimeout(function() {
@@ -341,6 +339,8 @@
                             //点击时阻止跳转
                         if (o.trigger == 'click.jd') return false;
                     })
+
+                _self.$cells = $cells;
             }
 
             // 自动播放
@@ -393,75 +393,19 @@
             clearInterval(this.t1);
         },
         /**
-         * @method get 
-         * @param {string} i=null prev next 
-         * @description 获取上一个,下一个,默认获取当前激活
+         * @method getPage 
+         * @param {number|string} i 页码
+         * @description 获取第n页的对象合集
          * @return {array} jq对象
-         * @示例 获取当前激活
+         * @示例 js
          * ```js
-         *     $('[data-duang=1]').jqDuang('get');
-         * ```
-         * @示例 获取上一个
-         * ```js
-         *     $('[data-duang=1]').jqDuang('get', 'prev');
-         * ```
-         * @示例 获取下一个
-         * ```js
-         *     $('[data-duang=1]').jqDuang('get', 'next');
+         *     $('[data-duang=1]').jqDuang('getPage');
          * ```
          */
-        get: function(i) {
-            var _self = this,
-                o = _self.o,
-                loopNext = _self.loopNext,
-                offsets;
-            if (i == 'prev') {
-                loopNext--;
-            } else if (i == 'next') {
-                loopNext++;
-            }
-
-            if (_self.effect == 'Loop') {
-                if (i) {
-                     if (loopNext == _self.pages + 1) {
-                        offsets =  2;
-                        // offsets =  o.steps + o.steps;
-                    } else if (loopNext == 0) {
-                        offsets = _self.len + 1;
-                        // offsets = _self.len + o.steps;
-                    } else if (loopNext == -2) {
-                        offsets = _self.len - 1;
-                        // offsets = _self.len - o.steps;
-                    } else if (loopNext == -1) {
-                        offsets = 0;
-                    } else if (loopNext == _self.pages) {
-                        offsets =  1;
-                        // offsets =  o.steps;
-                    }  else {
-                        offsets = 1 + loopNext;
-                        // offsets = (1 + loopNext) * o.steps;
-                    }     
-                } else {
-                    if (loopNext == _self.pages) {
-                        offsets =  o.steps;
-                    } else if (loopNext == -1) {
-                        offsets = _self.len;
-                    } else {
-                        offsets = (1 + loopNext) * o.steps;
-                    }
-                }
-            } else if (loopNext == _self.pages) {
-                offsets = 0;
-            } else if (loopNext == _self.pages - 1 || loopNext == -1) {
-                offsets = _self.len - o.visible;
-            } else {
-                if (i && loopNext == _self.pages + 1) {
-                    offsets = 1;
-                } else {
-                    offsets = loopNext * o.steps;
-                }
-            }
-            return _self.$obj.eq(offsets)
+        getPage: function(i) {
+            var next = ((i + 1) % this.pages) * this.o.steps;
+            var nextNext = ((next + 1) % this.pages) * this.o.steps || this.$obj.length;
+            return this.$obj.slice(next, nextNext)
         },
         /**
          * @method next 
@@ -501,7 +445,7 @@
                 o        = _self.o,
                 $objP    = _self.$obj.parent(),
                 pCss     = {},
-                speed    = speed || o.speed;
+                speed = speed || o.speed;
 
             if (_self.index == next && _self.effect != 'Marqueue') return;
             /**
@@ -551,43 +495,54 @@
                     break;
                 default :
                     var loopNext = _self.loopNext,
-                        offsets, // 目标位置
-                        start; 
+                        sSteps   = _self.len % o.steps || o.steps, // 剩余优先 当最后剩余的li不够一个steps时，计算小步长
+                        start = 0,
+                        end = o.visible,
+                        oOffsets, // 原位置
+                        offsets; // 目标位置;
 
                     if (_self.effect == 'Loop') {
                         if (loopNext == _self.pages) {
-                            // 最后一个向右多滚动一个
-                            offsets = o.steps + _self.len;
-                            // start = null;
-                            // 滚动结束再移到左边同样的位置
-                            var fn = function() {
-                                $objP.css(_self.dire, -_self.size * o.steps);
-                            }
+                            // 目标位置第一个位置
+                            offsets = o.visible;
+                            end = offsets + o.visible;
+                            // last to first 定位到偏移第一个左边的一个steps的位置
+                            $objP.css(_self.dire, -_self.size * (offsets - sSteps));
                             // return false;
                         } else if (loopNext == -1) {
-                            // 第一个向左多滚动一个
-                            offsets = 0;
-                            // start = null;
-                            // 滚动结束再移到右边同样的位置
-                            var fn = function() {
-                                $objP.css(_self.dire, -_self.size * _self.len);
-                            }
+                            // 目标位置最后一个 - 剩余的
+                            start = offsets = o.visible + _self.len - sSteps;
+                            end = undefined;
+                            // first to last 定位到clone出来的第一个位置
+                            $objP.css(_self.dire, -_self.size * (offsets + sSteps));
                             // return false;
                         } else {
-                            // 正常切换 左边clone数 + 偏移数量 => o.steps + next * o.steps
-                            start = offsets = (1 + next) * o.steps;
+                            // 正常切换 左边clone数 + 偏移数量
+                            start = offsets = o.visible + next * o.steps;
+
+                            if (offsets != 0) {
+                                end += offsets;
+                            }
                         }
-                    } else if (loopNext == _self.pages - 1 || loopNext == -1) {
-                        offsets = _self.len - o.visible;
                     } else {
-                        start = offsets = next * o.steps;
+                        if (loopNext == _self.pages - 1 || loopNext == -1) {
+                            offsets = _self.len - o.visible;
+                        } else {
+                            offsets = next * o.steps;
+                        }
+
+                        start = offsets;
+                        if (offsets != 0) {
+                            end += offsets;
+                        }
                     }
-                    // _self.offsets = offsets;
+
                     pCss[_self.dire] = -_self.size * offsets;
-                    $objP.stop(true, _self.effect == 'Loop').animate(pCss, speed, o.easing, fn);
+                    $objP.stop(true, _self.effect == 'Loop').animate(pCss, speed, o.easing, function() {
+                        console.log(111);
+                    });
                     // 懒加载
-                    !!o.lazyload && _self.lazyload(_self.$obj.slice(start, start == null ? undefined : start + o.visible));
-                    // !!o.lazyload && _self.lazyload(_self.getPage('next'));
+                    !!o.lazyload && _self.lazyload(_self.$obj.slice(start, end));
                     pCss = null;
             } // switch end
             // 标题
@@ -604,8 +559,8 @@
                 _self.$cells.removeClass(o.actclass).eq(next).addClass(o.actclass)
             }
             // 扩展对象, next过大时没有扩展对象,不执行
-            if (_self.$objex.length > next) {
-                _self.$objex.hide().eq(next).show();
+            if (_self.$objExt.length > next) {
+                _self.$objExt.hide().eq(next).show();
             }
             // 
             _self.index = next;
@@ -625,15 +580,15 @@
     }
 
     function Plugin(option, arg) {
-        if (option == 'index') {
+        /*if (option == 'index') {
             return this.data('jqDuang').index;
         }
 
-        if ({get: 1}[option]) {
+        if ({getPage: 1}[option]) {
             return this.data('jqDuang')[option](arg);
-        }
+        }*/
 
-        return this.each(function() {
+        return option == 'index' ? this : this.each(function() {
             var $this = $(this),
                 data = $this.data('jqDuang'),
                 options;
